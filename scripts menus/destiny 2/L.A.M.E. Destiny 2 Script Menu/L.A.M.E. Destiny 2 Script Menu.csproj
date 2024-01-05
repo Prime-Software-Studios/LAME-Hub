@@ -8,9 +8,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>images\logo.ico</ApplicationIcon>
+    <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="App.config" />
     <None Remove="images\close_icon.png" />
     <None Remove="images\discord_icon.png" />
     <None Remove="images\kofi_icon.png" />
@@ -22,10 +24,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="INIParser" Version="1.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Ini" Version="8.0.0" />
     <PackageReference Include="Nefarius.ViGEm.Client" Version="1.21.256" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="images\close_icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

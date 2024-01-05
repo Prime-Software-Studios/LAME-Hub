@@ -1,10 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "C10dYL2aBUnWcr7JoQH2SJplHpz2RaeUQRMi514Dy4AvuSJNETDvWTukjhtXhrFR/Et5elcrB56ZkUgfoHCYqg==",
+  "dgSpecHash": "Q6AEBFzQf3km/LjTbldOWjMEx6kGdOM1lVkxXZrTJD6AVc4s4EVwfnr2Rf6kdlGdENcdyCIASZYkLk3r77bQGA==",
   "success": true,
   "projectFilePath": "C:\\Users\\J1233\\source\\repos\\L.A.M.E. Destiny 2 Script Menu\\L.A.M.E. Destiny 2 Script Menu\\L.A.M.E. Destiny 2 Script Menu.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\J1233\\.nuget\\packages\\nefarius.vigem.client\\1.21.256\\nefarius.vigem.client.1.21.256.nupkg.sha512"
+    "C:\\Users\\J1233\\.nuget\\packages\\iniparser\\1.0.1\\iniparser.1.0.1.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\microsoft.extensions.configuration\\8.0.0\\microsoft.extensions.configuration.8.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\microsoft.extensions.configuration.fileextensions\\8.0.0\\microsoft.extensions.configuration.fileextensions.8.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\microsoft.extensions.configuration.ini\\8.0.0\\microsoft.extensions.configuration.ini.8.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\8.0.0\\microsoft.extensions.fileproviders.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\8.0.0\\microsoft.extensions.fileproviders.physical.8.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\8.0.0\\microsoft.extensions.filesystemglobbing.8.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\nefarius.vigem.client\\1.21.256\\nefarius.vigem.client.1.21.256.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\system.configuration.configurationmanager\\8.0.0\\system.configuration.configurationmanager.8.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\system.diagnostics.eventlog\\8.0.0\\system.diagnostics.eventlog.8.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\system.security.cryptography.protecteddata\\8.0.0\\system.security.cryptography.protecteddata.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }
