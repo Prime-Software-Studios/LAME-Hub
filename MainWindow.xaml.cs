@@ -13,6 +13,8 @@ using System.Windows.Media.Animation;
 using System.Diagnostics;
 using System.Security.Policy;
 using System.Threading;
+using System.Management;
+using Microsoft.Win32;
 
 namespace L.A.M.E._Launcher
 {
@@ -22,13 +24,10 @@ namespace L.A.M.E._Launcher
     public partial class MainWindow : Window
     {
 
-        private static Mutex? mutex;
-
         public MainWindow()
         {
             InitializeComponent();
-            SlideLogo();
-            FalseLoading();
+            DependenciesChecker();
         }
 
         public enum LauncherStatus
@@ -39,18 +38,68 @@ namespace L.A.M.E._Launcher
 
         }
 
-        private async void FalseLoading()
+        public bool IsDotNetRuntimeInstalled()
         {
-            await Task.Delay(3200);
-            launching_label_downloading.Visibility = Visibility.Visible;
-            launching_label_checking.Visibility = Visibility.Hidden;
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedhost"))
+            {
+                if (key != null && key.GetValue("Version") != null)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool IsViGEmBusDriverInstalled()
+        {
+            var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_SystemDriver WHERE Name = 'ViGEmBus'");
+            var drivers = searcher.Get();
+
+            return drivers.Count > 0;
+        }
+
+        private async void DependenciesChecker()
+        {
+            SlideLogo();
             await Task.Delay(3500);
+            if (IsDotNetRuntimeInstalled())
+            {
+            }
+            else if (!IsDotNetRuntimeInstalled())
+            {
+                launching_label_checking.Visibility = Visibility.Hidden;
+                launching_label_downloading.Visibility = Visibility.Visible;
+                await Task.Delay(3000);
+                launching_label_downloading.Visibility = Visibility.Hidden;
+                launching_label_installing_net.Visibility = Visibility.Visible;
+                Process installerProccess = new Process();
+                installerProccess.StartInfo.FileName = "installers/net_installer.exe";
+                installerProccess.Start();
+                installerProccess.WaitForExit();
+            }
+
+            if (IsViGEmBusDriverInstalled())
+            {
+            }
+            else if (!IsViGEmBusDriverInstalled())
+            {
+                launching_label_checking.Visibility = Visibility.Hidden;
+                launching_label_installing_net.Visibility = Visibility.Hidden;
+                launching_label_installing_vigem.Visibility = Visibility.Visible;
+                Process installerProccess = new Process();
+                installerProccess.StartInfo.FileName = "installers/vigem_installer.exe";
+                installerProccess.Start();
+                installerProccess.WaitForExit();
+            }
+            launching_label_checking.Visibility = Visibility.Hidden;
+            launching_label_installing_vigem.Visibility = Visibility.Hidden;
             launching_label_launching.Visibility = Visibility.Visible;
-            launching_label_downloading.Visibility = Visibility.Hidden;
-            await Task.Delay(3300);
+            await Task.Delay(3500);
             launching_canvas.Visibility = Visibility.Hidden;
             titlebar.Visibility = Visibility.Visible;
             release_notes_canvas.Visibility = Visibility.Visible;
+
         }
 
         public void SlideLogo()

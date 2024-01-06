@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "Xa+y5py5GRjQj/cDzZto28OhcZOq3vRV6jtgnamPEe2jV+vZ4ERhD1BuSEm3tGEH7uev+KiZslAPEi3mFvLFLw==",
+  "dgSpecHash": "ABclSsFRu52OPZQn40CMrllESjsU8dzCFVG6NhAe2kHBLK2ejYIf6Cz52x+u0VhWRXRVwAaWo/ripltYq1g6ZQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\J1233\\source\\repos\\L.A.M.E. Launcher\\L.A.M.E. Launcher\\L.A.M.E. Launcher.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\J1233\\.nuget\\packages\\system.codedom\\8.0.0\\system.codedom.8.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\system.management\\8.0.0\\system.management.8.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

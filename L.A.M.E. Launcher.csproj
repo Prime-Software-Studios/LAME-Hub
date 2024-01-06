@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Management" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="images\close_icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
