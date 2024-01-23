@@ -1,0 +1,12 @@
+C:\Users\J1233\source\repos\LAME Hub\HubHelper\bin\Release\net8.0-windows\HubHelper.deps.json
+C:\Users\J1233\source\repos\LAME Hub\HubHelper\bin\Release\net8.0-windows\HubHelper.dll
+C:\Users\J1233\source\repos\LAME Hub\HubHelper\bin\Release\net8.0-windows\HubHelper.pdb
+C:\Users\J1233\source\repos\LAME Hub\HubHelper\obj\Release\net8.0-windows\HubHelper.csproj.AssemblyReference.cache
+C:\Users\J1233\source\repos\LAME Hub\HubHelper\obj\Release\net8.0-windows\HubHelper.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\J1233\source\repos\LAME Hub\HubHelper\obj\Release\net8.0-windows\HubHelper.AssemblyInfoInputs.cache
+C:\Users\J1233\source\repos\LAME Hub\HubHelper\obj\Release\net8.0-windows\HubHelper.AssemblyInfo.cs
+C:\Users\J1233\source\repos\LAME Hub\HubHelper\obj\Release\net8.0-windows\HubHelper.csproj.CoreCompileInputs.cache
+C:\Users\J1233\source\repos\LAME Hub\HubHelper\obj\Release\net8.0-windows\HubHelper.dll
+C:\Users\J1233\source\repos\LAME Hub\HubHelper\obj\Release\net8.0-windows\refint\HubHelper.dll
+C:\Users\J1233\source\repos\LAME Hub\HubHelper\obj\Release\net8.0-windows\HubHelper.pdb
+C:\Users\J1233\source\repos\LAME Hub\HubHelper\obj\Release\net8.0-windows\ref\HubHelper.dll

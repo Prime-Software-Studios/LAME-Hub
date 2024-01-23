@@ -9,248 +9,135 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Media.Animation;
+using HubHelper;
+using System.Reflection;
+using Discord;
+using Discord.WebSocket;
+using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Security.Policy;
-using System.Threading;
-using System.Management;
-using Microsoft.Win32;
+using DiscordRPC;
+using DiscordRPC.Logging;
+using System.Configuration;
 
-namespace L.A.M.E._Launcher
+namespace LAME_Hub
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        HotkeyHandler HotkeyHandler = new HotkeyHandler();
+
+        UIHandler UIHandler = new UIHandler();
+
+        public DiscordRpcClient client;
+
+        System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
 
         public MainWindow()
         {
             InitializeComponent();
-            DependenciesChecker();
         }
 
-        public enum LauncherStatus
+        private void EnableWindowDragable(object sender, MouseButtonEventArgs e)
         {
-            Ready,
-            CheckingDependencies,
-            DownloadingDependencies,
-
+            try
+            {
+                if (e.ChangedButton == MouseButton.Left)
+                    this.DragMove();
+            }
+            catch
+            {
+                // MessageBox.Show(" Error Code EWDF ", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        public bool IsDotNetRuntimeInstalled()
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedhost"))
+            try
             {
-                if (key != null && key.GetValue("Version") != null)
-                {
-                    return true;
-                }
+                this.Close();
             }
-
-            return false;
+            catch
+            {
+                System.Windows.MessageBox.Show(" Error Code CBC ", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        public bool IsViGEmBusDriverInstalled()
+        private void NavbarButtonClicked(object sender, RoutedEventArgs e)
         {
-            var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_SystemDriver WHERE Name = 'ViGEmBus'");
-            var drivers = searcher.Get();
-
-            return drivers.Count > 0;
+            UIHandler.NavbarButtonClicked(sender, navbar, canvasParent);
         }
 
-        private async void DependenciesChecker()
+        private void DestinyCanvasLaunchButton_Click(object sender, RoutedEventArgs e)
         {
-            SlideLogo();
-            await Task.Delay(3500);
-            if (IsDotNetRuntimeInstalled())
-            {
-            }
-            else if (!IsDotNetRuntimeInstalled())
-            {
-                launching_label_checking.Visibility = Visibility.Hidden;
-                launching_label_downloading.Visibility = Visibility.Visible;
-                await Task.Delay(3000);
-                launching_label_downloading.Visibility = Visibility.Hidden;
-                launching_label_installing_net.Visibility = Visibility.Visible;
-                Process installerProccess = new Process();
-                installerProccess.StartInfo.FileName = "installers/net_installer.exe";
-                installerProccess.Start();
-                installerProccess.WaitForExit();
-            }
-
-            if (IsViGEmBusDriverInstalled())
-            {
-            }
-            else if (!IsViGEmBusDriverInstalled())
-            {
-                launching_label_checking.Visibility = Visibility.Hidden;
-                launching_label_installing_net.Visibility = Visibility.Hidden;
-                launching_label_installing_vigem.Visibility = Visibility.Visible;
-                Process installerProccess = new Process();
-                installerProccess.StartInfo.FileName = "installers/vigem_installer.exe";
-                installerProccess.Start();
-                installerProccess.WaitForExit();
-            }
-            launching_label_checking.Visibility = Visibility.Hidden;
-            launching_label_installing_vigem.Visibility = Visibility.Hidden;
-            launching_label_launching.Visibility = Visibility.Visible;
-            await Task.Delay(3500);
-            launching_canvas.Visibility = Visibility.Hidden;
-            titlebar.Visibility = Visibility.Visible;
-            release_notes_canvas.Visibility = Visibility.Visible;
-
+            DestinyWindow destinyWindow = new DestinyWindow();
+            destinyWindow.Show();
+            this.Close();
         }
 
-        public void SlideLogo()
+        public string GetAvatarURL(User.AvatarFormat format, User.AvatarSize size)
         {
-            // Create a new TranslateTransform and assign it to the Logo's RenderTransform property
-            launching_logo.RenderTransformOrigin = new Point(0.5, 0.5);
-            TranslateTransform translateTransform = new TranslateTransform();
-            launching_logo.RenderTransform = translateTransform;
-
-            // Create a new DoubleAnimation to animate the TranslateTransform
-            DoubleAnimation animation = new DoubleAnimation
+            format = User.AvatarFormat.PNG;
+            size = User.AvatarSize.x128;
+            return $"https://cdn.discordapp.com/avatars/{client.CurrentUser.ID}/{client.CurrentUser.Avatar}.{format.ToString().ToLower()}?size={size.ToString().Substring(1)}";
+        }
+        private void Window_Initialized(object sender, EventArgs e)
             {
-                From = 0,
-                To = +1000, // Slide off screen to the left
-                Duration = new Duration(TimeSpan.FromSeconds(3)),
-                RepeatBehavior = RepeatBehavior.Forever
+            client = new DiscordRpcClient("1195005916584620212");
+
+            client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
+
+            client.OnReady += (sender, e) =>
+            {
+                Console.WriteLine("Received Ready from user {0}", e.User.Username);
             };
 
-            translateTransform.BeginAnimation(TranslateTransform.XProperty, animation);
+            client.OnPresenceUpdate += (sender, e) =>
+            {
+                Console.WriteLine("Received Update! {0}", e.Presence);
+            };
+
+            client.Initialize();
+
+            client.OnReady += (sender, e) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    string avatarURL = GetAvatarURL(User.AvatarFormat.PNG, User.AvatarSize.x128);
+
+                    UserPFP.Source = new BitmapImage(new Uri(avatarURL));
+                    Username.Content = "Username : " + e.User.Username + "#0001";
+                    DisplayName.Content = "Display Name : " + e.User.DisplayName;
+                    UserID.Content = "Discord ID : " + e.User.ID;
+                });
+            };
+
+            client.SetPresence(new RichPresence()
+            {
+                Details = "Using LAME Hub",
+                State = "In The LAME Hub Main Menu",
+                Timestamps = Timestamps.Now,
+                Assets = new Assets()
+                {
+                    LargeImageKey = "logo",
+                    LargeImageText = "LAME Hub Logo",
+                    SmallImageKey = "logo"
+                    
+                }
+            });
+
+           
         }
 
-        private void Close_Click(object sender, RoutedEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.Close();
+            client.Dispose();
         }
 
-        private void Titlebar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void SaveThemeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-        }
 
-        private void games_button_Click(object sender, RoutedEventArgs e)
-        {
-            games_button.Foreground = (SolidColorBrush)Resources["BackgroundColor"];
-            games_button.Background = (SolidColorBrush)Resources["ForegroundColor"];
-            release_notes_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            release_notes_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            credits_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            credits_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            discord_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            discord_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            donate_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            donate_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-
-            games_canvas.Visibility = Visibility.Visible;
-            release_notes_canvas.Visibility = Visibility.Hidden;
-            credits_canvas.Visibility = Visibility.Hidden;
-        }
-
-        private void release_notes_button_Click(object sender, RoutedEventArgs e)
-        {
-            release_notes_button.Foreground = (SolidColorBrush)Resources["BackgroundColor"];
-            release_notes_button.Background = (SolidColorBrush)Resources["ForegroundColor"];
-            games_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            games_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            credits_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            credits_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            discord_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            discord_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            donate_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            donate_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-
-            games_canvas.Visibility = Visibility.Hidden;
-            release_notes_canvas.Visibility = Visibility.Visible;
-            credits_canvas.Visibility = Visibility.Hidden;
-        }
-
-        private void credits_button_Click(object sender, RoutedEventArgs e)
-        {
-            credits_button.Foreground = (SolidColorBrush)Resources["BackgroundColor"];
-            credits_button.Background = (SolidColorBrush)Resources["ForegroundColor"];
-            games_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            games_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            release_notes_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            release_notes_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            discord_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            discord_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            donate_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            donate_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-
-            games_canvas.Visibility = Visibility.Hidden;
-            release_notes_canvas.Visibility = Visibility.Hidden;
-            credits_canvas.Visibility = Visibility.Visible;
-        }
-
-        private void discord_button_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start(new ProcessStartInfo("cmd", $"/c start https://www.thrallway.com") { CreateNoWindow = true });
-        }
-
-        private void donate_button_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start(new ProcessStartInfo("cmd", $"/c start https://www.ko-fi.com/leopoldprime") { CreateNoWindow = true });
-        }
-
-        private void destiny_button_Click(object sender, RoutedEventArgs e)
-        {
-            destiny_button.Foreground = (SolidColorBrush)Resources["BackgroundColor"];
-            destiny_button.Background = (SolidColorBrush)Resources["ForegroundColor"];
-            destiny_button.BorderBrush = (SolidColorBrush)Resources["BackgroundColor"];
-            warframe_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            warframe_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            warframe_button.BorderBrush = (SolidColorBrush)Resources["ForegroundColor"];
-            rust_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            rust_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            rust_button.BorderBrush = (SolidColorBrush)Resources["ForegroundColor"];
-
-            game_destiny_canvas.Visibility = Visibility.Visible;
-            game_warframe_canvas.Visibility = Visibility.Hidden;
-            game_rust_canvas.Visibility = Visibility.Hidden;
-        }
-
-        private void warframe_button_Click(object sender, RoutedEventArgs e)
-        {
-            warframe_button.Foreground = (SolidColorBrush)Resources["BackgroundColor"];
-            warframe_button.Background = (SolidColorBrush)Resources["ForegroundColor"]; 
-            warframe_button.BorderBrush = (SolidColorBrush)Resources["BackgroundColor"];
-            destiny_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            destiny_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            destiny_button.BorderBrush = (SolidColorBrush)Resources["ForegroundColor"];
-            rust_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            rust_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            rust_button.BorderBrush = (SolidColorBrush)Resources["ForegroundColor"];
-
-            game_destiny_canvas.Visibility = Visibility.Hidden;
-            game_warframe_canvas.Visibility = Visibility.Visible;
-            game_rust_canvas.Visibility = Visibility.Hidden;
-        }
-
-        private void rust_button_Click(object sender, RoutedEventArgs e)
-        {
-            rust_button.Foreground = (SolidColorBrush)Resources["BackgroundColor"];
-            rust_button.Background = (SolidColorBrush)Resources["ForegroundColor"];
-            rust_button.BorderBrush = (SolidColorBrush)Resources["BackgroundColor"];
-            destiny_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            destiny_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            destiny_button.BorderBrush = (SolidColorBrush)Resources["ForegroundColor"];
-            warframe_button.Foreground = (SolidColorBrush)Resources["ForegroundColor"];
-            warframe_button.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            warframe_button.BorderBrush = (SolidColorBrush)Resources["ForegroundColor"];
-
-            game_destiny_canvas.Visibility = Visibility.Hidden;
-            game_warframe_canvas.Visibility = Visibility.Hidden;
-            game_rust_canvas.Visibility = Visibility.Visible;
-        }
-
-        private void game_destiny_launch_button_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start(new ProcessStartInfo("scripts/destiny2/L.A.M.E. Destiny 2 Script Menu.exe"));
-            this.Close();
         }
     }
 }

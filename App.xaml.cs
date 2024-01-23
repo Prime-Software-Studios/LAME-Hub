@@ -2,12 +2,12 @@
 using System.Data;
 using System.Windows;
 
-namespace L.A.M.E._Launcher
+namespace LAME_Hub
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
     }
 

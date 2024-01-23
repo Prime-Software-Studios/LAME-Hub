@@ -1,17 +1,19 @@
-﻿<Window x:Class="L.A.M.E._Launcher.MainWindow"
+﻿<Window x:Class="LAME_Hub.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:L.A.M.E._Launcher"
+        xmlns:local="clr-namespace:LAME_Hub"
         mc:Ignorable="d"
-        Title="L.A.M.E. Launcher" Height="450" Width="800"
+        Title="LAME Hub - Main Menu" Height="450" Width="800"
         WindowStyle="None"
         AllowsTransparency="True"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen" Initialized="Window_Initialized" Closing="Window_Closing"
         >
     <Window.Resources>
+        <SolidColorBrush x:Key="BackgroundColor" Color="#23343d" />
+        <SolidColorBrush x:Key="ForegroundColor" Color="#eb7623" />
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -21,23 +23,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="BackgroundColor" Color="#23343d" />
-        <SolidColorBrush x:Key="ForegroundColor" Color="#eb7623" />
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#23343d"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#23343d"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Foreground" Color="#23343d"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.Pressed.Foreground" Color="#23343d"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
-        <Style x:Key="button_style_one" TargetType="{x:Type Button}">
+        <Style x:Key="NavbarStyleOne" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ForegroundColor}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -54,74 +43,17 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Button.MouseOver.Foreground}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Button.Pressed.Foreground}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="FocusVisual1">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <SolidColorBrush x:Key="Button.Static.Background1" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.Static.Border1" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background1" Color="#23343d"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border1" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground1" Color="#eb7623"/>
-        <Style x:Key="button_style_two" TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual1}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background1}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border1}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background1}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border1}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background1}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border1}"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background1}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border1}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground1}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource ForegroundColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -129,38 +61,33 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Background="#23343d" MouseLeftButtonDown="Titlebar_MouseLeftButtonDown">
-        <Label x:Name="version" Content="v2.1.0.0.b" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="14" Foreground="#eb7623" IsEnabled="False"/>
-        <Label x:Name="beta_warning" Content="This is a Beta and is a Work In Progress" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="14" Foreground="#eb7623" IsEnabled="False"/>
-        <Canvas x:Name="titlebar" HorizontalAlignment="Center" Height="51" VerticalAlignment="Top" Width="800" MouseLeftButtonDown="Titlebar_MouseLeftButtonDown" Visibility="Hidden">
-            <Image x:Name="logo" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="42" Source="/L.A.M.E. Launcher;component/images/logo.png" MouseLeftButtonDown="Titlebar_MouseLeftButtonDown" Canvas.Left="19" Canvas.Top="10"/>
-            <Button Style="{DynamicResource button_style_one}" x:Name="close_button" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" Height="40" Canvas.Right="10" Canvas.Top="6" Click="Close_Click" Background="#23343d" Foreground="#eb7623" BorderBrush="#23343d" BorderThickness="0" Canvas.Left="750" FontFamily="Segoe UI Light" FontSize="18" FontWeight="Bold">
-                <Button.Content>
-                    <Image Source="images/close_icon.png" Height="30" Width="30"/>
-                </Button.Content>
+    <Grid MouseLeftButtonDown="EnableWindowDragable">
+        <Canvas x:Name="TitleBar" MouseLeftButtonDown="EnableWindowDragable" Background="{DynamicResource BackgroundColor}" Margin="0,0,0,412" Visibility="Visible">
+            <Button x:Name="CloseButton" Style="{StaticResource NavbarStyleOne}" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderThickness="0" Canvas.Left="765" Canvas.Top="3" Width="30" Height="30" Click="CloseButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image x:Name="CloseButtonImage" Source="images/close_icon.png" Height="25" Width="25" Canvas.Left="10" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             </Button>
-            <Button Style="{DynamicResource button_style_one}" x:Name="credits_button" Content="Credits" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="84" Height="30" Canvas.Right="50" Canvas.Top="10" Background="#23343d" Foreground="#eb7623" Canvas.Left="453" FontFamily="Segoe UI Light" FontSize="14" Click="credits_button_Click"/>
-            <Button Style="{DynamicResource button_style_one}" x:Name="release_notes_button" Content="Release Notes" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="96" Height="30" Canvas.Right="50" Canvas.Top="10" Background="#eb7623" Foreground="#23343d" Canvas.Left="352" FontFamily="Segoe UI Light" FontSize="14" Click="release_notes_button_Click"/>
-            <Button Style="{DynamicResource button_style_one}" x:Name="games_button" Content="Games" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="84" Height="30" Canvas.Right="50" Canvas.Top="10" Background="#23343d" Foreground="#eb7623" Canvas.Left="263" FontFamily="Segoe UI Light" FontSize="14" RenderTransformOrigin="-0.016,0.593" Click="games_button_Click"/>
-            <Button Style="{DynamicResource button_style_one}" x:Name="discord_button" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" Height="40" Canvas.Right="50" Canvas.Top="6" Background="#23343d" Foreground="#eb7623" Canvas.Left="705" FontFamily="Segoe UI Light" FontSize="14" Click="discord_button_Click">
-                <Button.Content>
-                    <Image Source="images/discord_icon.png" Height="30" Width="30"/>
-                </Button.Content>
-            </Button>
-            <Button Style="{DynamicResource button_style_one}" x:Name="donate_button" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="40" Height="40" Canvas.Right="50" Canvas.Top="6" Background="#23343d" Foreground="#eb7623" Canvas.Left="660" FontFamily="Segoe UI Light" FontSize="14" Click="donate_button_Click">
-                <Button.Content>
-                    <Image Source="images/kofi_icon.png" Height="30" Width="30"/>
-                </Button.Content>
-            </Button>
-            <Rectangle HorizontalAlignment="Center" Height="2" Margin="0,51,0,0" Stroke="#eb7623" StrokeThickness="0" Fill="#eb7623" VerticalAlignment="Top" Width="800"/>
+            <Image x:Name="Logo" Source="images/Logo.png" Height="26" Width="25" Canvas.Left="10" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Rectangle x:Name="TitleBarBackground" Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="0" Canvas.Top="35" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         </Canvas>
-        <Canvas x:Name="games_canvas" Margin="0,53,0,0" Visibility="Hidden">
-            <Button Style="{DynamicResource button_style_two}" x:Name="destiny_button" Content="Destiny 2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Height="30" Canvas.Right="50" Canvas.Top="10" BorderBrush="#23343d" Background="#eb7623" Foreground="#23343d" Canvas.Left="10" FontFamily="Segoe UI Light" FontSize="14" Click="destiny_button_Click"/>
-            <Button Style="{DynamicResource button_style_two}" x:Name="warframe_button" Content="Warframe" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Height="30" Canvas.Right="50" Canvas.Top="60" Background="#23343d" Foreground="#eb7623" Canvas.Left="10" FontFamily="Segoe UI Light" FontSize="14" Click="warframe_button_Click"/>
-            <Button Style="{DynamicResource button_style_two}" x:Name="rust_button" Content="Rust" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Height="30" Canvas.Right="50" Canvas.Top="110" Background="#23343d" Foreground="#eb7623" Canvas.Left="10" FontFamily="Segoe UI Light" FontSize="14" Click="rust_button_Click"/>
-            <Rectangle HorizontalAlignment="Center" Height="399" Stroke="#eb7623" StrokeThickness="0" Fill="#eb7623" VerticalAlignment="Top" Width="2" Canvas.Left="120"/>
-            <Canvas x:Name="game_destiny_canvas" Height="397" Width="679" HorizontalAlignment="Center" Canvas.Left="121" VerticalAlignment="Top" Visibility="Visible">
-                <Image x:Name="game_destiny_canvas_background" Stretch="Fill" HorizontalAlignment="Left" Height="396" VerticalAlignment="Center" Width="677" Source="images/destiny_banner.jpg" Canvas.Left="2">
+        <Canvas x:Name="navbar" Margin="0,38,642,0" Background="{DynamicResource BackgroundColor}" Visibility="Visible">
+            <Button x:Name="DestinyNavbar" Content="Destiny 2" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="20" Width="135" Height="33" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Click="NavbarButtonClicked"/>
+            <Button x:Name="WarframeNavbar" Content="Warframe" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="65" Width="135" Height="33" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Click="NavbarButtonClicked"/>
+            <Button x:Name="RustNavbar" Content="Rust" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="110" Width="135" Height="33" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Click="NavbarButtonClicked"/>
+            <Button x:Name="ReleaseNotesNavbar" Content="Release Notes" Background="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource BackgroundColor}" Canvas.Left="12" Canvas.Top="270" Width="134" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NavbarButtonClicked"/>
+            <Button x:Name="CreditsNavbar" Content="Credits" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="12" Canvas.Top="300" Width="134" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" Click="NavbarButtonClicked"/>
+            <Button x:Name="SettingsNavbar" Content="Settings" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="12" Canvas.Top="330" Width="134" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" Click="NavbarButtonClicked"/>
+            <Button x:Name="DiscordNavbar" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="43" Canvas.Top="360" Width="30" BorderThickness="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Image x:Name="DiscordNavbarImage" Source="images/discord_icon.png" Height="25" Width="25" Canvas.Left="10" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </Button>
+            <Button x:Name="DonateNavbar" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="87" Canvas.Top="360" Width="30" BorderThickness="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Image x:Name="DonateNavbarImage" Source="images/kofi_icon.png" Height="25" Width="25" Canvas.Left="10" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </Button>
+            <Rectangle Fill="{DynamicResource ForegroundColor}" Height="412" Canvas.Left="156" Canvas.Top="0" Width="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Label Name="Version" Content="v2.2.0.0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Canvas.Left="53" Canvas.Top="386" Foreground="{DynamicResource ForegroundColor}"/>
+        </Canvas>
+        <Canvas x:Name="canvasParent" Margin="158,38,0,0" Visibility="Visible">
+            <Canvas x:Name="DestinyNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="642" Visibility="Hidden">
+                <Image x:Name="DestinyCanvasBackground" Stretch="Fill" HorizontalAlignment="Center" Height="408" VerticalAlignment="Top" Width="640" Source="images/destiny_banner.jpg" Canvas.Left="2">
                     <Image.OpacityMask>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black"/>
@@ -168,12 +95,12 @@
                         </LinearGradientBrush>
                     </Image.OpacityMask>
                 </Image>
-                <Button Style="{DynamicResource button_style_two}" x:Name="game_destiny_launch_button" Content="Launch" HorizontalAlignment="Left" VerticalAlignment="Top" Width="157" Height="45" Canvas.Right="50" Canvas.Top="153" Background="#23343d" Foreground="#eb7623" Canvas.Left="512" FontFamily="Segoe UI Light" FontSize="14" Click="game_destiny_launch_button_Click"/>
-                <Label x:Name="game_destiny_canvas_label" Content="Destiny 2 Script Menu" HorizontalAlignment="Center" VerticalAlignment="Top" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="22" Foreground="#eb7623" Canvas.Left="10" Canvas.Top="153"/>
-                <Rectangle HorizontalAlignment="Center" Height="2" Stroke="#eb7623" StrokeThickness="0" Fill="#eb7623" VerticalAlignment="Top" Width="679" Canvas.Top="213"/>
+                <Button Style="{DynamicResource NavbarStyleOne}" x:Name="DestinyCanvasLaunchButton" Content="Launch" HorizontalAlignment="Left" VerticalAlignment="Center" Width="157" Height="45" Canvas.Right="50" Canvas.Top="153" Background="#23343d" Foreground="#eb7623" Canvas.Left="475" FontFamily="Segoe UI Light" FontSize="14" Click="DestinyCanvasLaunchButton_Click"/>
+                <Label x:Name="DestinyCanvasLabel" Content="Destiny 2 Script Menu" HorizontalAlignment="Center" VerticalAlignment="Top" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="22" Foreground="#eb7623" Canvas.Left="10" Canvas.Top="153"/>
+                <Rectangle HorizontalAlignment="Left" Height="2" Stroke="#eb7623" StrokeThickness="0" Fill="#eb7623" VerticalAlignment="Center" Width="642" Canvas.Top="213"/>
             </Canvas>
-            <Canvas x:Name="game_warframe_canvas" Height="397" Width="679" HorizontalAlignment="Center" Canvas.Left="121" VerticalAlignment="Top" Visibility="Hidden">
-                <Image x:Name="game_warframe_canvas_background" Stretch="Fill" HorizontalAlignment="Left" Height="396" VerticalAlignment="Center" Width="677" Source="images/warframe_banner.jpg" Canvas.Left="2">
+            <Canvas x:Name="WarframeNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="642" Visibility="Hidden">
+                <Image x:Name="WarframeCanvasBackground" Stretch="Fill" HorizontalAlignment="Center" Height="408" VerticalAlignment="Top" Width="640" Source="images/warframe_banner.jpg" Canvas.Left="2">
                     <Image.OpacityMask>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black"/>
@@ -181,12 +108,12 @@
                         </LinearGradientBrush>
                     </Image.OpacityMask>
                 </Image>
-                <Button Style="{DynamicResource button_style_two}" x:Name="game_warframe_launch_button" Content="Coming Soon" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top" Width="157" Height="45" Canvas.Right="50" Canvas.Top="153" Background="#23343d" Foreground="#eb7623" Canvas.Left="512" FontFamily="Segoe UI Light" FontSize="14"/>
-                <Label x:Name="game_warframe_canvas_label" Content="Warframe Script Menu" HorizontalAlignment="Center" VerticalAlignment="Top" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="22" Foreground="#eb7623" Canvas.Left="10" Canvas.Top="153"/>
-                <Rectangle HorizontalAlignment="Center" Height="2" Stroke="#eb7623" StrokeThickness="0" Fill="#eb7623" VerticalAlignment="Top" Width="679" Canvas.Top="213"/>
+                <Button Style="{DynamicResource NavbarStyleOne}" x:Name="WarframeCanvasLaunchButton" Content="Launch" HorizontalAlignment="Left" VerticalAlignment="Center" Width="157" Height="45" Canvas.Right="50" Canvas.Top="153" Background="#23343d" Foreground="#eb7623" Canvas.Left="475" FontFamily="Segoe UI Light" FontSize="14"/>
+                <Label x:Name="WarframeCanvasLabel" Content="Warframe Script Menu" HorizontalAlignment="Center" VerticalAlignment="Top" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="22" Foreground="#eb7623" Canvas.Left="10" Canvas.Top="153"/>
+                <Rectangle HorizontalAlignment="Left" Height="2" Stroke="#eb7623" StrokeThickness="0" Fill="#eb7623" VerticalAlignment="Center" Width="642" Canvas.Top="213"/>
             </Canvas>
-            <Canvas x:Name="game_rust_canvas" Height="397" Width="679" HorizontalAlignment="Center" Canvas.Left="121" VerticalAlignment="Top" Visibility="Hidden">
-                <Image x:Name="game_rust_canvas_background" Stretch="Fill" HorizontalAlignment="Left" Height="396" VerticalAlignment="Center" Width="677" Source="images/rust_banner.jpg" Canvas.Left="2">
+            <Canvas x:Name="RustNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="642" Visibility="Hidden">
+                <Image x:Name="RustCanvasBackground" Stretch="Fill" HorizontalAlignment="Center" Height="408" VerticalAlignment="Top" Width="640" Source="images/destiny_banner.jpg" Canvas.Left="2">
                     <Image.OpacityMask>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black"/>
@@ -194,41 +121,90 @@
                         </LinearGradientBrush>
                     </Image.OpacityMask>
                 </Image>
-                <Button Style="{DynamicResource button_style_two}" x:Name="game_rust_launch_button" Content="Coming Soon" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top" Width="157" Height="45" Canvas.Right="50" Canvas.Top="153" Background="#23343d" Foreground="#eb7623" Canvas.Left="512" FontFamily="Segoe UI Light" FontSize="14"/>
-                <Label x:Name="game_rust_canvas_label" Content="Rust Script Menu" HorizontalAlignment="Center" VerticalAlignment="Top" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="22" Foreground="#eb7623" Canvas.Left="10" Canvas.Top="153"/>
-                <Rectangle HorizontalAlignment="Center" Height="2" Stroke="#eb7623" StrokeThickness="0" Fill="#eb7623" VerticalAlignment="Top" Width="679" Canvas.Top="213"/>
+                <Button Style="{DynamicResource NavbarStyleOne}" x:Name="RustCanvasLaunchButton" Content="Launch" HorizontalAlignment="Left" VerticalAlignment="Center" Width="157" Height="45" Canvas.Right="50" Canvas.Top="153" Background="#23343d" Foreground="#eb7623" Canvas.Left="475" FontFamily="Segoe UI Light" FontSize="14"/>
+                <Label x:Name="RustCanvasLabel" Content="Rust Script Menu" HorizontalAlignment="Center" VerticalAlignment="Top" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="22" Foreground="#eb7623" Canvas.Left="10" Canvas.Top="153"/>
+                <Rectangle HorizontalAlignment="Left" Height="2" Stroke="#eb7623" StrokeThickness="0" Fill="#eb7623" VerticalAlignment="Center" Width="642" Canvas.Top="213"/>
             </Canvas>
-        </Canvas>
-        <Canvas x:Name="release_notes_canvas" Margin="0,53,0,0" Visibility="Hidden">
-            <Label x:Name="release_notes_main_canvas_label" Content="v2.1.0.0.b Release Notes" Foreground="#eb7623" Canvas.Left="256" Canvas.Top="10" FontSize="28" FontFamily="Segoe UI Light" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Foreground="#eb7623" FontSize="20" FontFamily="Segoe UI Light" Canvas.Left="199" Canvas.Top="57" HorizontalAlignment="Center" VerticalAlignment="Center">
-                - Complete Ui  Overhaul
-                <LineBreak/>
-                - Offical and Uniform Branding
-                <LineBreak/>
-                - Complete Language Shift from Python to C#
-                <LineBreak/>
-                - New Version Lettering That Makes Sense
-                <LineBreak/>
-                - Destiny Macros Optimized + Added Options
-                <LineBreak/>
-                - Added Donate Button per User Request
-                <LineBreak/>
-                - Added Warframe Macro Tab (Pending Release)
-                <LineBreak/>
-                - Added Rust Macro Tab (Pending Release)
-            </TextBlock>
-        </Canvas>
-        <Canvas x:Name="credits_canvas" Margin="0,53,0,0" Visibility="Hidden">
-
-        </Canvas>
-        <Canvas x:Name="launching_canvas" Visibility="Visible">
-            <Label x:Name="launching_label_checking" Content="Checking Dependencies" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="24" Foreground="#eb7623" Canvas.Left="274" Canvas.Top="67" Visibility="Visible"/>
-            <Label x:Name="launching_label_downloading" Content="Downloading Dependencies" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="24" Foreground="#eb7623" Canvas.Left="253" Canvas.Top="67" Visibility="Hidden"/>
-            <Label x:Name="launching_label_installing_vigem" Content="Installing ViGemBus" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="24" Foreground="#eb7623" Canvas.Left="297" Canvas.Top="67" Visibility="Hidden"/>
-            <Label x:Name="launching_label_installing_net" Content="Installing .Net Desktop Runtime" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="24" Foreground="#eb7623" Canvas.Left="238" Canvas.Top="67" Visibility="Hidden"/>
-            <Label x:Name="launching_label_launching" Content="Launching Main Menu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="24" Foreground="#eb7623" Canvas.Left="283" Canvas.Top="67" Visibility="Hidden"/>
-            <Image x:Name="launching_logo" HorizontalAlignment="Left" Height="118" VerticalAlignment="Center" Width="116" Source="images/logo.png" Canvas.Left="-115" Canvas.Top="166"/>
+            <Canvas x:Name="ReleaseNotesNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="642" Visibility="Visible">
+                <Label x:Name="ReleaseNotesLabel" Content="Release Notes" Canvas.Left="254" Canvas.Top="10" Foreground="{DynamicResource ForegroundColor}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="254" Canvas.Top="47" Width="134" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Width="622" Canvas.Left="10" Canvas.Top="54" Height="348" TextAlignment="Center" Foreground="{DynamicResource ForegroundColor}" FontSize="13">
+                     - Complete Rewrite Of The Hub Into More Modular Form
+                     <LineBreak/>
+                     - Changed Navbars Into One So Its More Compact
+                     <LineBreak/>
+                     - Added Settings Tab With Discord Integration And Placeholders For Upcoming Theme Changer
+                     <LineBreak/>
+                     - Added New Button To Navbar (Information)
+                     <LineBreak/>
+                     - Fixed A Bug Where The Hub Wouldnt Load Script Menus
+                    <LineBreak/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    Contact Me On Discord If You Have Any Suggestions Or Bugs
+                    <LineBreak/>
+                   <LineBreak/>
+                    Discord: _leopoldprime
+                </TextBlock>
+            </Canvas>
+            <Canvas x:Name="CreditsNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="642" Visibility="Hidden">
+                <Label x:Name="CreditsLabel" Content="Credits" Canvas.Left="285" Canvas.Top="10" Foreground="{DynamicResource ForegroundColor}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="285" Canvas.Top="47" Width="72" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Width="622" Canvas.Left="10" Canvas.Top="54" Height="348" Foreground="{DynamicResource ForegroundColor}" FontSize="13" TextAlignment="Center">
+                     All Credits Given Will Be In Their Discord Tag
+                     <LineBreak/>
+                     <LineBreak/>
+                     <LineBreak/>
+                     Lead Developer: _leopoldprime
+                     <LineBreak/>
+                     <LineBreak/>
+                     Concept Art For UI: stellariko
+                     <LineBreak/>
+                     <LineBreak/>
+                     Website Were I Got The LAME Theme: antrament
+                     <LineBreak/>
+                     <LineBreak/>
+                     Lament Damage Rotation Timings And Inputs: lonewolf1802
+                     <LineBreak/>
+                     <LineBreak/>
+                     Modularity Rewrite Encouragement: waifushork
+                     <LineBreak/>
+                     <LineBreak/>
+                     Binding System: waifushork
+                     <LineBreak/>
+                     <LineBreak/>
+                     Code Proofreading: waifushork
+                     <LineBreak/>
+                     <LineBreak/>
+                     <LineBreak/>
+                     If You Think Im Missing Credits For Something Please Contact Me On Discord
+                     <LineBreak/>
+                     Discord: _leopoldprime
+                </TextBlock>
+            </Canvas>
+            <Canvas x:Name="SettingsNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="642" Visibility="Hidden">
+                <Image x:Name="UserPFP" Source="images/logo.png" Height="65" Width="96" Canvas.Left="273" Canvas.Top="23"/>
+                <Label x:Name="Username" Content="Username Unavaliable - Discord Closed" HorizontalAlignment="Center" VerticalAlignment="Top" Width="622" Height="Auto" FontFamily="Segoe UI Light" FontSize="16" Foreground="#eb7623" Canvas.Left="10" Canvas.Top="124" HorizontalContentAlignment="Center"/>
+                <Label x:Name="DisplayName" Content="Display Name Unavaliable - Discord Closed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="622" Height="Auto" FontFamily="Segoe UI Light" FontSize="16" Foreground="#eb7623" Canvas.Left="10" Canvas.Top="93" HorizontalContentAlignment="Center"/>
+                <Label x:Name="UserID" Content="Discord ID Unavaliable - Discord Closed" HorizontalAlignment="Center" VerticalAlignment="Top" Width="622" Height="Auto" FontFamily="Segoe UI Light" FontSize="16" Foreground="#eb7623" Canvas.Left="10" Canvas.Top="155" HorizontalContentAlignment="Center"/>
+                <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="187" Canvas.Top="193" Width="265" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox x:Name="ForegroundInputBox" Text="#eb7623" IsEnabled="False" Height="30" Width="70" Canvas.Left="217" Canvas.Top="236" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="16"/>
+                <Label x:Name="ForegroundLabel" Content="Foreground Color" HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="16" Foreground="#eb7623" Canvas.Left="187" Canvas.Top="200"/>
+                <Label x:Name="BackgroundLabel" Content="Background Color" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="16" Foreground="#eb7623" Canvas.Left="321" Canvas.Top="200"/>
+                <TextBox x:Name="BackgroundInputBox" IsEnabled="False" Text="#23343d" Height="30" Width="70" Canvas.Left="351" Canvas.Top="236" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="16"/>
+                <Button x:Name="SaveThemeButton" IsEnabled="False" Content="Apply Theme" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="254" Canvas.Top="287" Width="134" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SaveThemeButton_Click"/>
+                <Label x:Name="PlaceholderLabel" Content="(This Is A Placeholder For The Theme Changer And Is Non-Functional)" HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" Foreground="#eb7623" Canvas.Left="140" Canvas.Top="317"/>
+            </Canvas>
         </Canvas>
     </Grid>
 </Window>
