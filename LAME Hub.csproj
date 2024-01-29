@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Hotkeys2\Hotkeys\Hotkeys.csproj" />
     <ProjectReference Include="..\HubHelper\HubHelper.csproj" />
   </ItemGroup>
 

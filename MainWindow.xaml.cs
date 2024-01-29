@@ -37,6 +37,8 @@ namespace LAME_Hub
         public MainWindow()
         {
             InitializeComponent();
+
+            LoadingScreen();
         }
 
         private void EnableWindowDragable(object sender, MouseButtonEventArgs e)
@@ -84,7 +86,7 @@ namespace LAME_Hub
         }
         private void Window_Initialized(object sender, EventArgs e)
             {
-            client = new DiscordRpcClient("1195005916584620212");
+            client = new DiscordRpcClient("");
 
             client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
 
@@ -138,6 +140,25 @@ namespace LAME_Hub
         private void SaveThemeButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void DiscordNavbar_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("cmd", $"/c start https://www.thrallway.com") { CreateNoWindow = true });
+        }
+
+        private void DonateNavbar_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("cmd", $"/c start https://www.ko-fi.com/leopoldprime") { CreateNoWindow = true });
+        }
+
+        async private void LoadingScreen()
+        {
+            await Task.Delay(6000);
+            LoadingImage.Visibility = Visibility.Hidden;
+            TitleBar.Visibility = Visibility.Visible;
+            navbar.Visibility = Visibility.Visible;
+            canvasParent.Visibility = Visibility.Visible;
         }
     }
 }

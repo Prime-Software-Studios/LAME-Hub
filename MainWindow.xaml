@@ -10,6 +10,7 @@
         AllowsTransparency="True"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen" Initialized="Window_Initialized" Closing="Window_Closing"
+        Background="Transparent"
         >
     <Window.Resources>
         <SolidColorBrush x:Key="BackgroundColor" Color="#23343d" />
@@ -62,30 +63,45 @@
         </Style>
     </Window.Resources>
     <Grid MouseLeftButtonDown="EnableWindowDragable">
-        <Canvas x:Name="TitleBar" MouseLeftButtonDown="EnableWindowDragable" Background="{DynamicResource BackgroundColor}" Margin="0,0,0,412" Visibility="Visible">
+        <Image x:Name="LoadingImage" Source="images/logo.png" Visibility="Visible" Canvas.Left="24" Canvas.Top="98" Height="232" Width="276">
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Image.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                  From="1.0" To="0.0" 
+                  AutoReverse="True" 
+                  RepeatBehavior="Forever" 
+                  Duration="0:0:1"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+        <Canvas x:Name="TitleBar" MouseLeftButtonDown="EnableWindowDragable" Background="{DynamicResource BackgroundColor}" Margin="0,0,0,412" Visibility="Hidden">
             <Button x:Name="CloseButton" Style="{StaticResource NavbarStyleOne}" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderThickness="0" Canvas.Left="765" Canvas.Top="3" Width="30" Height="30" Click="CloseButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Image x:Name="CloseButtonImage" Source="images/close_icon.png" Height="25" Width="25" Canvas.Left="10" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             </Button>
             <Image x:Name="Logo" Source="images/Logo.png" Height="26" Width="25" Canvas.Left="10" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Rectangle x:Name="TitleBarBackground" Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="0" Canvas.Top="35" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         </Canvas>
-        <Canvas x:Name="navbar" Margin="0,38,642,0" Background="{DynamicResource BackgroundColor}" Visibility="Visible">
+        <Canvas x:Name="navbar" Margin="0,38,642,0" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
             <Button x:Name="DestinyNavbar" Content="Destiny 2" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="20" Width="135" Height="33" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Click="NavbarButtonClicked"/>
             <Button x:Name="WarframeNavbar" Content="Warframe" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="65" Width="135" Height="33" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Click="NavbarButtonClicked"/>
             <Button x:Name="RustNavbar" Content="Rust" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="110" Width="135" Height="33" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Click="NavbarButtonClicked"/>
             <Button x:Name="ReleaseNotesNavbar" Content="Release Notes" Background="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource BackgroundColor}" Canvas.Left="12" Canvas.Top="270" Width="134" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NavbarButtonClicked"/>
             <Button x:Name="CreditsNavbar" Content="Credits" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="12" Canvas.Top="300" Width="134" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" Click="NavbarButtonClicked"/>
             <Button x:Name="SettingsNavbar" Content="Settings" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="12" Canvas.Top="330" Width="134" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" Click="NavbarButtonClicked"/>
-            <Button x:Name="DiscordNavbar" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="43" Canvas.Top="360" Width="30" BorderThickness="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button x:Name="DiscordNavbar" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="43" Canvas.Top="360" Width="30" BorderThickness="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Click="DiscordNavbar_Click">
                 <Image x:Name="DiscordNavbarImage" Source="images/discord_icon.png" Height="25" Width="25" Canvas.Left="10" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             </Button>
-            <Button x:Name="DonateNavbar" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="87" Canvas.Top="360" Width="30" BorderThickness="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button x:Name="DonateNavbar" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="87" Canvas.Top="360" Width="30" BorderThickness="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Click="DonateNavbar_Click">
                 <Image x:Name="DonateNavbarImage" Source="images/kofi_icon.png" Height="25" Width="25" Canvas.Left="10" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             </Button>
             <Rectangle Fill="{DynamicResource ForegroundColor}" Height="412" Canvas.Left="156" Canvas.Top="0" Width="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Label Name="Version" Content="v2.2.0.0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Canvas.Left="53" Canvas.Top="386" Foreground="{DynamicResource ForegroundColor}"/>
         </Canvas>
-        <Canvas x:Name="canvasParent" Margin="158,38,0,0" Visibility="Visible">
+        <Canvas x:Name="canvasParent" Margin="158,38,0,0" Visibility="Hidden">
             <Canvas x:Name="DestinyNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="642" Visibility="Hidden">
                 <Image x:Name="DestinyCanvasBackground" Stretch="Fill" HorizontalAlignment="Center" Height="408" VerticalAlignment="Top" Width="640" Source="images/destiny_banner.jpg" Canvas.Left="2">
                     <Image.OpacityMask>
