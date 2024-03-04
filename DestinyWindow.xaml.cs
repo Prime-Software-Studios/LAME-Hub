@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using DiscordRPC.Logging;
 using DiscordRPC;
 using HubHelper;
@@ -21,6 +20,9 @@ using System.Windows.Ink;
 using Nefarius.ViGEm.Client.Targets.Xbox360;
 using Nefarius.ViGEm.Client;
 using Hotkeys;
+using System.Drawing.Text;
+using System.Runtime.CompilerServices;
+using System.IO;
 
 namespace LAME_Hub
 {
@@ -112,7 +114,7 @@ namespace LAME_Hub
         }
         private void NavbarButtonClicked(object sender, RoutedEventArgs e)
         {
-            UIHandler.NavbarButtonClicked(sender, Navbar, canvasParent);
+            NavbarButtonClicked2(sender, Navbar, canvasParent);
         }
         private void EnableWindowDragable(object sender, MouseButtonEventArgs e)
         {
@@ -140,7 +142,7 @@ namespace LAME_Hub
         }
         private void Window_Initialized(object sender, EventArgs e)
         {
-            client = new DiscordRpcClient("");
+            client = new DiscordRpcClient("1195005916584620212");
 
             client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
 
@@ -162,10 +164,13 @@ namespace LAME_Hub
                 {
                     string avatarURL = GetAvatarURL(User.AvatarFormat.PNG, User.AvatarSize.x128);
 
-                    UserPFP.Source = new BitmapImage(new Uri(avatarURL));
-                    Username.Content = "Username : " + e.User.Username + "#0001";
-                    DisplayName.Content = "Display Name : " + e.User.DisplayName;
-                    UserID.Content = "Discord ID : " + e.User.ID;
+                    Username.Content = e.User.Username + "#0001";
+                    DisplayName.Content = e.User.DisplayName;
+                    UserID.Content = e.User.ID;
+
+                    DisplayName2.Content = e.User.DisplayName;
+                    UserPFP2.Source = new BitmapImage(new Uri(avatarURL));
+
                 });
             };
 
@@ -194,31 +199,51 @@ namespace LAME_Hub
         {
             config.AppSettings.Settings.Remove("SeasonalXPDelay");
             config.AppSettings.Settings.Add("SeasonalXPDelay", SeasonalXPDelay.Text);
+            config.Save(ConfigurationSaveMode.Full);
         }
         private void SeasonalXPBind_Click(object sender, RoutedEventArgs e)
         {
             SeasonalXPBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Seasonal XP Hotkey",
-                    action: hotkey => SeasonalXPToggle()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("SeasonalXPBind");
-                config.AppSettings.Settings.Add("SeasonalXPBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                SeasonalXPBind.Content = "Binded To " + Keybind;
+                if (e.Key == Key.Escape)
+                {
+                    SeasonalXPBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["SeasonalXPBind"]?.Value == null)
+                    {
+                        SeasonalXPBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        SeasonalXPBind.Content = "Binded To " + config.AppSettings.Settings["SeasonalXPBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Seasonal XP Hotkey",
+                        action: hotkey => SeasonalXPToggle()
+                        );
+
+                    config.AppSettings.Settings.Remove("SeasonalXPBind");
+                    config.AppSettings.Settings.Add("SeasonalXPBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    SeasonalXPBind.Content = "Binded To " + Keybind;
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -239,26 +264,45 @@ namespace LAME_Hub
         {
             WeaponXPBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Weapon XP Hotkey",
-                    action: hotkey => WeaponXPToggle()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("WeaponXPBind");
-                config.AppSettings.Settings.Add("WeaponXPBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                WeaponXPBind.Content = "Binded To " + Keybind;
+                if (e.Key == Key.Escape)
+                {
+                    WeaponXPBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["WeaponXPBind"]?.Value == null)
+                    {
+                        WeaponXPBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        WeaponXPBind.Content = "Binded To " + config.AppSettings.Settings["WeaponXPBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Weapon XP Hotkey",
+                        action: hotkey => WeaponXPToggle()
+                        );
+
+                    config.AppSettings.Settings.Remove("WeaponXPBind");
+                    config.AppSettings.Settings.Add("WeaponXPBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    WeaponXPBind.Content = "Binded To " + Keybind;
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -267,6 +311,7 @@ namespace LAME_Hub
         {
             config.AppSettings.Settings.Remove("FishingDelay");
             config.AppSettings.Settings.Add("FishingDelay", FishingDelay.Text);
+            config.Save(ConfigurationSaveMode.Full);
         }
         private void RotationRepeatInfinite_Click(object sender, RoutedEventArgs e)
         {
@@ -276,7 +321,6 @@ namespace LAME_Hub
             GlobalVariables.LamentRepeatSelectEnabled = false;
 
             RotationRepeatInfinite.Background = (SolidColorBrush)Resources["ForegroundColor"];
-            RotationRepeatHeld.Background = (SolidColorBrush)Resources["BackgroundColor"];
             RotationRepeatOnce.Background = (SolidColorBrush)Resources["BackgroundColor"];
             RotationRepeatSelect.Background = (SolidColorBrush)Resources["BackgroundColor"];
         }
@@ -288,22 +332,10 @@ namespace LAME_Hub
             GlobalVariables.LamentRepeatSelectEnabled = false;
 
             RotationRepeatInfinite.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            RotationRepeatHeld.Background = (SolidColorBrush)Resources["BackgroundColor"];
             RotationRepeatOnce.Background = (SolidColorBrush)Resources["ForegroundColor"];
             RotationRepeatSelect.Background = (SolidColorBrush)Resources["BackgroundColor"];
         }
-        private void RotationRepeatHeld_Click(object sender, RoutedEventArgs e)
-        {
-            GlobalVariables.LamentRepeatInfiniteEnabled = false;
-            GlobalVariables.LamentRepeatHeldEnabled = true;
-            GlobalVariables.LamentRepeatOnceEnabled = false;
-            GlobalVariables.LamentRepeatSelectEnabled = false;
 
-            RotationRepeatInfinite.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            RotationRepeatHeld.Background = (SolidColorBrush)Resources["ForegroundColor"];
-            RotationRepeatOnce.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            RotationRepeatSelect.Background = (SolidColorBrush)Resources["BackgroundColor"];
-        }
         private void RotationRepeatSelect_Click(object sender, RoutedEventArgs e)
         {
             GlobalVariables.LamentRepeatInfiniteEnabled = false;
@@ -312,7 +344,6 @@ namespace LAME_Hub
             GlobalVariables.LamentRepeatSelectEnabled = true;
 
             RotationRepeatInfinite.Background = (SolidColorBrush)Resources["BackgroundColor"];
-            RotationRepeatHeld.Background = (SolidColorBrush)Resources["BackgroundColor"];
             RotationRepeatOnce.Background = (SolidColorBrush)Resources["BackgroundColor"];
             RotationRepeatSelect.Background = (SolidColorBrush)Resources["ForegroundColor"];
         }
@@ -320,31 +351,51 @@ namespace LAME_Hub
         {
             config.AppSettings.Settings.Remove("RotationRepeatSelectBox");
             config.AppSettings.Settings.Add("RotationRepeatSelectBox", RotationRepeatSelectBox.Text);
+            config.Save(ConfigurationSaveMode.Full);
         }
         private void LamentRotationBind_Click(object sender, RoutedEventArgs e)
         {
             LamentRotationBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Lament Hotkey",
-                    action: hotkey => Lament()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("LamentBind");
-                config.AppSettings.Settings.Add("LamentBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                LamentRotationBind.Content = "Binded To " + Keybind;
+                if (e.Key == Key.Escape)
+                {
+                    LamentRotationBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["LamentBind"]?.Value == null)
+                    {
+                        LamentRotationBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        LamentRotationBind.Content = "Binded To " + config.AppSettings.Settings["LamentBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Lament Hotkey",
+                        action: hotkey => Lament()
+                        );
+
+                    config.AppSettings.Settings.Remove("LamentBind");
+                    config.AppSettings.Settings.Add("LamentBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    LamentRotationBind.Content = "Binded To " + Keybind;
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -353,26 +404,45 @@ namespace LAME_Hub
         {
             LoadoutOneBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+             async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Loadout One Hotkey",
-                    action: hotkey => LoadoutOneSwap()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("LoadoutOneBind");
-                config.AppSettings.Settings.Add("LoadoutOneBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                LoadoutOneBind.Content = "Binded To " + Keybind;
+                if (e.Key == Key.Escape)
+                {
+                    LoadoutOneBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["LoadoutOneBind"]?.Value == null)
+                    {
+                        LoadoutOneBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        LoadoutOneBind.Content = "Binded To " + config.AppSettings.Settings["LoadoutOneBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Loadout One Hotkey",
+                        action: hotkey => LoadoutOneSwap()
+                        );
+
+                    config.AppSettings.Settings.Remove("LoadoutOneBind");
+                    config.AppSettings.Settings.Add("LoadoutOneBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    LoadoutOneBind.Content = "Binded To " + Keybind;
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -381,26 +451,45 @@ namespace LAME_Hub
         {
             LoadoutTwoBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Loadout Two Hotkey",
-                    action: hotkey => LoadoutTwoSwap()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("LoadoutTwoBind");
-                config.AppSettings.Settings.Add("LoadoutTwoBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                LoadoutTwoBind.Content = "Binded To " + Keybind;
+                if (e.Key == Key.Escape)
+                {
+                    LoadoutTwoBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["LoadoutTwoBind"]?.Value == null)
+                    {
+                        LoadoutTwoBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        LoadoutTwoBind.Content = "Binded To " + config.AppSettings.Settings["LoadoutTwoBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Loadout Two Hotkey",
+                        action: hotkey => LoadoutTwoSwap()
+                        );
+
+                    config.AppSettings.Settings.Remove("LoadoutTwoBind");
+                    config.AppSettings.Settings.Add("LoadoutTwoBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    LoadoutTwoBind.Content = "Binded To " + Keybind;
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -409,26 +498,45 @@ namespace LAME_Hub
         {
             LoadoutThreeBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Loadout Three Hotkey",
-                    action: hotkey => LoadoutThreeSwap()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("LoadoutThreeBind");
-                config.AppSettings.Settings.Add("LoadoutThreeBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                LoadoutThreeBind.Content = "Binded To " + Keybind;
+                if (e.Key == Key.Escape)
+                {
+                    LoadoutThreeBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["LoadoutThreeBind"]?.Value == null)
+                    {
+                        LoadoutThreeBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        LoadoutThreeBind.Content = "Binded To " + config.AppSettings.Settings["LoadoutThreeBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Loadout Three Hotkey",
+                        action: hotkey => LoadoutThreeSwap()
+                        );
+
+                    config.AppSettings.Settings.Remove("LoadoutThreeBind");
+                    config.AppSettings.Settings.Add("LoadoutThreeBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    LoadoutThreeBind.Content = "Binded To " + Keybind;
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -437,26 +545,45 @@ namespace LAME_Hub
         {
             LoadoutFourBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Loadout Four Hotkey",
-                    action: hotkey => LoadoutFourSwap()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("LoadoutFourBind");
-                config.AppSettings.Settings.Add("LoadoutFourBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                LoadoutFourBind.Content = "Binded To " + Keybind;
+                if (e.Key == Key.Escape)
+                {
+                    LoadoutFourBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["LoadoutFourBind"]?.Value == null)
+                    {
+                        LoadoutFourBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        LoadoutFourBind.Content = "Binded To " + config.AppSettings.Settings["LoadoutFourBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Loadout Four Hotkey",
+                        action: hotkey => LoadoutFourSwap()
+                        );
+
+                    config.AppSettings.Settings.Remove("LoadoutFourBind");
+                    config.AppSettings.Settings.Add("LoadoutFourBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    LoadoutFourBind.Content = "Binded To " + Keybind;
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -465,26 +592,45 @@ namespace LAME_Hub
         {
             LoadoutFiveBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Loadout Five Hotkey",
-                    action: hotkey => LoadoutFiveSwap()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("LoadoutFiveBind");
-                config.AppSettings.Settings.Add("LoadoutFiveBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                LoadoutFiveBind.Content = "Binded To " + Keybind.ToString();
+                if (e.Key == Key.Escape)
+                {
+                    LoadoutFiveBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["LoadoutFiveBind"]?.Value == null)
+                    {
+                        LoadoutFiveBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        LoadoutFiveBind.Content = "Binded To " + config.AppSettings.Settings["LoadoutFiveBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Loadout Five Hotkey",
+                        action: hotkey => LoadoutFiveSwap()
+                        );
+
+                    config.AppSettings.Settings.Remove("LoadoutFiveBind");
+                    config.AppSettings.Settings.Add("LoadoutFiveBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    LoadoutFiveBind.Content = "Binded To " + Keybind.ToString();
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -493,26 +639,45 @@ namespace LAME_Hub
         {
             LoadoutSixBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Loadout Six Hotkey",
-                    action: hotkey => LoadoutSixSwap()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("LoadoutSixBind");
-                config.AppSettings.Settings.Add("LoadoutSixBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                LoadoutSixBind.Content = "Binded To " + Keybind.ToString();
+                if (e.Key == Key.Escape)
+                {
+                    LoadoutSixBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["LoadoutSixBind"]?.Value == null)
+                    {
+                        LoadoutSixBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        LoadoutSixBind.Content = "Binded To " + config.AppSettings.Settings["LoadoutSixBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Loadout Six Hotkey",
+                        action: hotkey => LoadoutSixSwap()
+                        );
+
+                    config.AppSettings.Settings.Remove("LoadoutSixBind");
+                    config.AppSettings.Settings.Add("LoadoutSixBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    LoadoutSixBind.Content = "Binded To " + Keybind.ToString();
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -521,26 +686,45 @@ namespace LAME_Hub
         {
             LoadoutSevenBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Loadout Seven Hotkey",
-                    action: hotkey => LoadoutSevenSwap()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("LoadoutSevenBind");
-                config.AppSettings.Settings.Add("LoadoutSevenBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                LoadoutSevenBind.Content = "Binded To " + Keybind.ToString();
+                if (e.Key == Key.Escape)
+                {
+                    LoadoutSevenBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["LoadoutSevenBind"]?.Value == null)
+                    {
+                        LoadoutSevenBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        LoadoutSevenBind.Content = "Binded To " + config.AppSettings.Settings["LoadoutSevenBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Loadout Seven Hotkey",
+                        action: hotkey => LoadoutSevenSwap()
+                        );
+
+                    config.AppSettings.Settings.Remove("LoadoutSevenBind");
+                    config.AppSettings.Settings.Add("LoadoutSevenBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    LoadoutSevenBind.Content = "Binded To " + Keybind.ToString();
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -549,26 +733,45 @@ namespace LAME_Hub
         {
             LoadoutEightBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Loadout Eight Hotkey",
-                    action: hotkey => LoadoutEightSwap()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("LoadoutEightBind");
-                config.AppSettings.Settings.Add("LoadoutEightBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                LoadoutEightBind.Content = "Binded To " + Keybind.ToString();
+                if (e.Key == Key.Escape)
+                {
+                    LoadoutEightBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["LoadoutEightBind"]?.Value == null)
+                    {
+                        LoadoutEightBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        LoadoutEightBind.Content = "Binded To " + config.AppSettings.Settings["LoadoutEightBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Loadout Eight Hotkey",
+                        action: hotkey => LoadoutEightSwap()
+                        );
+
+                    config.AppSettings.Settings.Remove("LoadoutEightBind");
+                    config.AppSettings.Settings.Add("LoadoutEightBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    LoadoutEightBind.Content = "Binded To " + Keybind.ToString();
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -577,26 +780,46 @@ namespace LAME_Hub
         {
             LoadoutNineBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Loadout Nine Hotkey",
-                    action: hotkey => LoadoutNineSwap()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("LoadoutNineBind");
-                config.AppSettings.Settings.Add("LoadoutNineBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                LoadoutNineBind.Content = "Binded To " + Keybind.ToString();
+                if (e.Key == Key.Escape)
+                {
+                    LoadoutNineBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["LoadoutNineBind"]?.Value == null)
+                    {
+                        LoadoutNineBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        LoadoutNineBind.Content = "Binded To " + config.AppSettings.Settings["LoadoutNineBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Loadout Nine Hotkey",
+                        action: hotkey => LoadoutNineSwap()
+                        );
+
+                    config.AppSettings.Settings.Remove("LoadoutNineBind");
+                    config.AppSettings.Settings.Add("LoadoutNineBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    LoadoutNineBind.Content = "Binded To " + Keybind.ToString();
+
+                    this.KeyDown -= Binder;
+
+                }
             };
 
             this.KeyDown += Binder;
@@ -605,26 +828,45 @@ namespace LAME_Hub
         {
             LoadoutTenBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Loadout Ten Hotkey",
-                    action: hotkey => LoadoutTenSwap()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("LoadoutTenBind");
-                config.AppSettings.Settings.Add("LoadoutTenBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                LoadoutTenBind.Content = "Binded To " + Keybind.ToString();
+                if (e.Key == Key.Escape)
+                {
+                    LoadoutTenBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["LoadoutTenBind"]?.Value == null)
+                    {
+                        LoadoutTenBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        LoadoutTenBind.Content = "Binded To " + config.AppSettings.Settings["LoadoutTenBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Loadout Ten Hotkey",
+                        action: hotkey => LoadoutTenSwap()
+                        );
+
+                    config.AppSettings.Settings.Remove("LoadoutTenBind");
+                    config.AppSettings.Settings.Add("LoadoutTenBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    LoadoutTenBind.Content = "Binded To " + Keybind.ToString();
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -633,6 +875,7 @@ namespace LAME_Hub
         {
             config.AppSettings.Settings.Remove("LoadoutSwapDelay");
             config.AppSettings.Settings.Add("LoadoutSwapDelay", LoadoutSwapperDelayBox.Text);
+            config.Save(ConfigurationSaveMode.Full);
         }
         public void SeasonalXPToggle()
         {
@@ -839,25 +1082,48 @@ namespace LAME_Hub
         {
             FishingXPBind.Content = "Binding...";
 
-            this.KeyDown += (s, e) =>
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Fishing Hotkey",
-                    action: hotkey => FishingToggle()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("FishingXPBind");
-                config.AppSettings.Settings.Add("FishingXPBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                FishingXPBind.Content = "Binded To " + Keybind;
+                if (e.Key == Key.Escape)
+                {
+                    FishingXPBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["FishingXPBind"]?.Value == null)
+                    {
+                        FishingXPBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        FishingXPBind.Content = "Binded To " + config.AppSettings.Settings["FishingXPBind"].Value;
+                    }
+
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Fishing Hotkey",
+                        action: hotkey => FishingToggle()
+                        );
+
+                    config.AppSettings.Settings.Remove("FishingXPBind");
+                    config.AppSettings.Settings.Add("FishingXPBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    FishingXPBind.Content = "Binded To " + Keybind;
+
+                    this.KeyDown -= Binder;
+                }
             };
+
+            this.KeyDown += Binder;
         }
         public static void MoveMouse(double xPercentage, double yPercentage)
         {
@@ -1175,23 +1441,161 @@ namespace LAME_Hub
         }
         private void SuperBind_Click(object sender, RoutedEventArgs e)
         {
-            HotkeyHandler.HotkeyBinding(SuperBind, this, "SuperBind", "LAME Hub.dll");
+            SuperBind.Content = "Binding...";
+
+            async void binder(object sender, System.Windows.Input.KeyEventArgs e)
+            {
+                if (e.Key == Key.Escape)
+                {
+                    SuperBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+
+                    if (config.AppSettings.Settings["SuperBind"]?.Value == null)
+                    {
+                        SuperBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        SuperBind.Content = "Binded To " + config.AppSettings.Settings["SuperBind"].Value;
+                    }
+                }
+                else
+                {
+                    HotkeyHandler.HotkeyBinding(SuperBind, this, "SuperBind", "LAME Hub.dll");
+                }
+
+                this.KeyDown -= binder;
+            }
+
+            this.KeyDown += binder;
         }
         private void PrimaryWeaponBind_Click(object sender, RoutedEventArgs e)
         {
-            HotkeyHandler.HotkeyBinding(PrimaryWeaponBind, this, "PrimaryWeaponBind", "LAME Hub.dll");
+
+            PrimaryWeaponBind.Content = "Binding...";
+
+            async void binder(object sender, System.Windows.Input.KeyEventArgs e)
+            {
+                if (e.Key == Key.Escape)
+                {
+                    PrimaryWeaponBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+
+                    if (config.AppSettings.Settings["PrimaryWeaponBind"]?.Value == null)
+                    {
+                        PrimaryWeaponBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        PrimaryWeaponBind.Content = "Binded To " + config.AppSettings.Settings["PrimaryWeaponBind"].Value;
+                    }
+                }
+                else
+                {
+                    HotkeyHandler.HotkeyBinding(PrimaryWeaponBind, this, "PrimaryWeaponBind", "LAME Hub.dll");
+                }
+
+                this.KeyDown -= binder;
+            }
+
+            this.KeyDown += binder;
+
         }
         private void SpecialWeaponBind_Click(object sender, RoutedEventArgs e)
         {
-            HotkeyHandler.HotkeyBinding(SpecialWeaponBind, this, "SpecialWeaponBind", "LAME Hub.dll");
+
+            SpecialWeaponBind.Content = "Binding...";
+
+            async void binder(object sender, System.Windows.Input.KeyEventArgs e)
+            {
+                if (e.Key == Key.Escape)
+                {
+                    SpecialWeaponBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+
+                    if (config.AppSettings.Settings["SpecialWeaponBind"]?.Value == null)
+                    {
+                        SpecialWeaponBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        SpecialWeaponBind.Content = "Binded To " + config.AppSettings.Settings["SpecialWeaponBind"].Value;
+                    }
+                }
+                else
+                {
+                    HotkeyHandler.HotkeyBinding(SpecialWeaponBind, this, "SpecialWeaponBind", "LAME Hub.dll");
+                }
+
+                this.KeyDown -= binder;
+            }
+
+            this.KeyDown += binder;
+
         }
         private void HeavyWeaponBind_Click(object sender, RoutedEventArgs e)
         {
-            HotkeyHandler.HotkeyBinding(HeavyWeaponBind, this, "HeavyWeaponBind", "LAME Hub.dll");
+
+            HeavyWeaponBind.Content = "Binding...";
+
+            async void binder(object sender, System.Windows.Input.KeyEventArgs e)
+            {
+                if (e.Key == Key.Escape)
+                {
+                    HeavyWeaponBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+
+                    if (config.AppSettings.Settings["HeavyWeaponBind"]?.Value == null)
+                    {
+                        HeavyWeaponBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        HeavyWeaponBind.Content = "Binded To " + config.AppSettings.Settings["HeavyWeaponBind"].Value;
+                    }
+                }
+                else
+                {
+                    HotkeyHandler.HotkeyBinding(HeavyWeaponBind, this, "HeavyWeaponBind", "LAME Hub.dll");
+                }
+
+                this.KeyDown -= binder;
+            }
+
+            this.KeyDown += binder;
+
         }
         private void AirMoveBind_Click(object sender, RoutedEventArgs e)
         {
-            HotkeyHandler.HotkeyBinding(AirMoveBind, this, "AirMoveBind", "LAME Hub.dll");
+
+            AirMoveBind.Content = "Binding...";
+
+            async void binder(object sender, System.Windows.Input.KeyEventArgs e)
+            {
+                if (e.Key == Key.Escape)
+                {
+                    AirMoveBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+
+                    if (config.AppSettings.Settings["AirMoveBind"]?.Value == null)
+                    {
+                        AirMoveBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        AirMoveBind.Content = "Binded To " + config.AppSettings.Settings["AirMoveBind"].Value;
+                    }
+                }
+                else
+                {
+                    HotkeyHandler.HotkeyBinding(AirMoveBind, this, "AirMoveBind", "LAME Hub.dll");
+                }
+
+                this.KeyDown -= binder;
+            }
+
+            this.KeyDown += binder;
+
         }
         async private void LoadingScreen()
         {
@@ -1294,26 +1698,45 @@ namespace LAME_Hub
         {
             GroundSkateBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Groundskate Hotkey",
-                    action: hotkey => GroundSkate()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("GroundskateBind");
-                config.AppSettings.Settings.Add("GroundSkateBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                GroundSkateBind.Content = "Binded To " + Keybind;
+                if (e.Key == Key.Escape)
+                {
+                    GroundSkateBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["GroundSkateBind"]?.Value == null)
+                    {
+                        GroundSkateBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        GroundSkateBind.Content = "Binded To " + config.AppSettings.Settings["GroundSkateBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Groundskate Hotkey",
+                        action: hotkey => GroundSkate()
+                        );
+
+                    config.AppSettings.Settings.Remove("GroundskateBind");
+                    config.AppSettings.Settings.Add("GroundSkateBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    GroundSkateBind.Content = "Binded To " + Keybind;
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -1322,26 +1745,45 @@ namespace LAME_Hub
         {
             EdgeSkateBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Edgeskate Hotkey",
-                    action: hotkey => EdgeSkate()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("EdgeSkateBind");
-                config.AppSettings.Settings.Add("EdgeSkateBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                EdgeSkateBind.Content = "Binded To " + Keybind;
+                if (e.Key == Key.Escape)
+                {
+                    EdgeSkateBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["EdgeSkateBind"]?.Value == null)
+                    {
+                        EdgeSkateBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        EdgeSkateBind.Content = "Binded To " + config.AppSettings.Settings["EdgeSkateBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Edgeskate Hotkey",
+                        action: hotkey => EdgeSkate()
+                        );
+
+                    config.AppSettings.Settings.Remove("EdgeSkateBind");
+                    config.AppSettings.Settings.Add("EdgeSkateBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    EdgeSkateBind.Content = "Binded To " + Keybind;
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -1350,26 +1792,45 @@ namespace LAME_Hub
         {
             SnapSkateBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Snapskate Hotkey",
-                    action: hotkey => SnapSkate()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("SnapSkateBind");
-                config.AppSettings.Settings.Add("SnapSkateBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                SnapSkateBind.Content = "Binded To " + Keybind;
+                if (e.Key == Key.Escape)
+                {
+                    SnapSkateBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["SnapSkateBind"]?.Value == null)
+                    {
+                        SnapSkateBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        SnapSkateBind.Content = "Binded To " + config.AppSettings.Settings["SnapSkateBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Snapskate Hotkey",
+                        action: hotkey => SnapSkate()
+                        );
+
+                    config.AppSettings.Settings.Remove("SnapSkateBind");
+                    config.AppSettings.Settings.Add("SnapSkateBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    SnapSkateBind.Content = "Binded To " + Keybind;
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -1378,26 +1839,45 @@ namespace LAME_Hub
         {
             StrandSkateBind.Content = "Binding...";
 
-            void Binder(object sender, System.Windows.Input.KeyEventArgs e)
+            async void Binder(object sender, System.Windows.Input.KeyEventArgs e)
             {
-                var Keybind = e.Key;
-
-                Hotkey key = new(
-                    key: Keybind,
-                    window: this,
-                    modifiers: ModifierKeys.None,
-                    description: "Strandskate Hotkey",
-                    action: hotkey => StrandSkate()
-                    );
-
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration("LAME Hub.dll");
-                config.AppSettings.Settings.Remove("StrandSkateBind");
-                config.AppSettings.Settings.Add("StrandSkateBind", Keybind.ToString());
-                config.Save(ConfigurationSaveMode.Full);
 
-                StrandSkateBind.Content = "Binded To " + Keybind;
+                if (e.Key == Key.Escape)
+                {
+                    StrandSkateBind.Content = "Binding Aborted";
+                    await Task.Delay(1000);
+                    if (config.AppSettings.Settings["StrandSkateBind"]?.Value == null)
+                    {
+                        StrandSkateBind.Content = "Bind";
+                    }
+                    else
+                    {
+                        StrandSkateBind.Content = "Binded To " + config.AppSettings.Settings["StrandSkateBind"].Value;
+                    }
 
-                this.KeyDown -= Binder;
+                    this.KeyDown -= Binder;
+                }
+                else
+                {
+                    var Keybind = e.Key;
+
+                    Hotkey key = new(
+                        key: Keybind,
+                        window: this,
+                        modifiers: ModifierKeys.None,
+                        description: "Strandskate Hotkey",
+                        action: hotkey => StrandSkate()
+                        );
+
+                    config.AppSettings.Settings.Remove("StrandSkateBind");
+                    config.AppSettings.Settings.Add("StrandSkateBind", Keybind.ToString());
+                    config.Save(ConfigurationSaveMode.Full);
+
+                    StrandSkateBind.Content = "Binded To " + Keybind;
+
+                    this.KeyDown -= Binder;
+                }
             };
 
             this.KeyDown += Binder;
@@ -1449,21 +1929,25 @@ namespace LAME_Hub
         {
             config.AppSettings.Settings.Remove("MovementDelayOne");
             config.AppSettings.Settings.Add("MovementDelayOne", MovementDelayOne.Text);
+            config.Save(ConfigurationSaveMode.Full);
         }
         private void MovementDelayTwo_TextChanged(object sender, TextChangedEventArgs e)
         {
             config.AppSettings.Settings.Remove("MovementDelayTwo");
             config.AppSettings.Settings.Add("MovementDelayTwo", MovementDelayTwo.Text);
+            config.Save(ConfigurationSaveMode.Full);
         }
         private void MovementDelayThree_TextChanged(object sender, TextChangedEventArgs e)
         {
             config.AppSettings.Settings.Remove("MovementDelayThree");
             config.AppSettings.Settings.Add("MovementDelayThree", MovementDelayThree.Text);
+            config.Save(ConfigurationSaveMode.Full);
         }
         private void MovementSwapBackDelay_TextChanged(object sender, TextChangedEventArgs e)
         {
             config.AppSettings.Settings.Remove("SwapBackdelay");
             config.AppSettings.Settings.Add("SwapBackdelay", MovementSwapBackDelay.Text);
+            config.Save(ConfigurationSaveMode.Full);
         }
         private void TextBoxCheck()
         {
@@ -1491,20 +1975,171 @@ namespace LAME_Hub
                 config.AppSettings.Settings.Add("SwapBackdelay", MovementSwapBackDelay.Text);
             }
         }
-
         private void InfoNavbar_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(new ProcessStartInfo("cmd", $"/c start https://www.prime-software.xyz/HubInfo.html") { CreateNoWindow = true });
         }
-
         private void DiscordNavbar_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(new ProcessStartInfo("cmd", $"/c start https://www.thrallway.com") { CreateNoWindow = true });
         }
-
         private void DonateNavbar_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(new ProcessStartInfo("cmd", $"/c start https://www.ko-fi.com/leopoldprime") { CreateNoWindow = true });
+        }
+
+        private void UIUpdater()
+        {
+            if (config.AppSettings.Settings["SeasonalXPBind"]?.Value == null)
+            {
+                SeasonalXPBind.Content = "Bind";
+            }
+            else
+            {
+                SeasonalXPBind.Content = "Binded To " + config.AppSettings.Settings["SeasonalXPBind"].Value;
+            }
+
+            if (config.AppSettings.Settings["SeasonalXPDelay"]?.Value == null)
+            {
+                SeasonalXPDelay.Text = "2200";
+            }
+            else
+            {
+                SeasonalXPDelay.Text = config.AppSettings.Settings["SeasonalXPDelay"].Value;
+            }
+
+            if (config.AppSettings.Settings["WeaponXPBind"]?.Value == null)
+            {
+                WeaponXPBind.Content = "Bind";
+            }
+            else
+            {
+                WeaponXPBind.Content = "Binded To " + config.AppSettings.Settings["WeaponXPBind"].Value;
+            }
+
+            if (config.AppSettings.Settings["FishingXPBind"]?.Value == null)
+            {
+                FishingXPBind.Content = "Bind";
+            }
+            else
+            {
+                FishingXPBind.Content = "Binded To " + config.AppSettings.Settings["FishingXPBind"].Value;
+            }
+
+            if (config.AppSettings.Settings["FishingDelay"]?.Value == null)
+            {
+                FishingDelay.Text = "1000";
+            }
+            else
+            {
+                FishingDelay.Text = config.AppSettings.Settings["FishingDelay"].Value;
+            }
+
+            if (config.AppSettings.Settings["LamentBind"]?.Value == null)
+            {
+                LamentRotationBind.Content = "Bind";
+            }
+            else
+            {
+                LamentRotationBind.Content = "Binded To " + config.AppSettings.Settings["LamentBind"].Value;
+            }
+
+            if (config.AppSettings.Settings["RotationRepeatSelectBox"]?.Value == null)
+            {
+                RotationRepeatSelectBox.Text = "1";
+            }
+            else
+            {
+                RotationRepeatSelectBox.Text = config.AppSettings.Settings["RotationRepeatSelectBox"].Value;
+            }
+
+
+        }
+
+        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("cmd", $"/c start https://www.thrallway.com") { CreateNoWindow = true });
+        }
+
+        private void ForegroundInputBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = sender as System.Windows.Controls.TextBox;
+            if (textBox != null)
+            {
+                try
+                {
+                    var color = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(textBox.Text);
+                    this.Resources["ForegroundColor"] = new SolidColorBrush(color);
+                }
+                catch (FormatException)
+                {
+                    // Handle the exception if the color string is not valid
+                }
+            }
+        }
+
+        private void BackgroundInputBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = sender as System.Windows.Controls.TextBox;
+            if (textBox != null)
+            {
+                try
+                {
+                    var color = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(textBox.Text);
+                    this.Resources["BackgroundColor"] = new SolidColorBrush(color);
+                }
+                catch (FormatException)
+                {
+                    // Handle the exception if the color string is not valid
+                }
+            }
+        }
+
+        public void NavbarButtonClicked2(object sender, Canvas navbar, Canvas canvasParent)
+        {
+            // Get the clicked button
+            System.Windows.Controls.Button clickedButton = (System.Windows.Controls.Button)sender;
+
+            // Get all buttons in the navbar
+            var buttons = navbar.Children.OfType<System.Windows.Controls.Button>();
+
+            // Get all canvases in the parent container
+            var canvases = canvasParent.Children.OfType<Canvas>();
+
+            foreach (System.Windows.Controls.Button button in buttons)
+            {
+                if (button == clickedButton)
+                {
+                    // Change the background color of the clicked button
+                    button.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(ForegroundInputBox.Text));
+
+                    // Find the corresponding canvas and set it to visible
+                    Canvas correspondingCanvas = canvases.FirstOrDefault(c => c.Name == button.Name + "Canvas");
+                    if (correspondingCanvas != null)
+                    {
+                        correspondingCanvas.Visibility = Visibility.Visible;
+                    }
+                }
+                else
+                {
+                    // Change the background color of the other buttons
+                    button.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#3e3d3f"));
+
+                    // Find the corresponding canvas and set it to hidden
+                    Canvas correspondingCanvas = canvases.FirstOrDefault(c => c.Name == button.Name + "Canvas");
+                    if (correspondingCanvas != null)
+                    {
+                        correspondingCanvas.Visibility = Visibility.Hidden;
+                    }
+                }
+            }
+        }
+        public void OnlyAllowNumbers(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

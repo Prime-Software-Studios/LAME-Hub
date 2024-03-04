@@ -5,8 +5,204 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LAME_Hub"
         mc:Ignorable="d"
-        Title="WarframeWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" Initialized="Window_Initialized" Closing="Window_Closing"
+        Background="Transparent"
+        Title="WarframeWindow" Height="450" Width="800"
+        >
+    <Window.Resources>
+        <SolidColorBrush x:Key="BackgroundColor" Color="#0b0a0c" />
+        <SolidColorBrush x:Key="ForegroundColor" Color="#539db5" />
+        <SolidColorBrush x:Key="IanactiveForground" Color="#3e3d3f"/>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="NavbarStyleOne" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ForegroundColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource ForegroundColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ScrollBarStyle" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition MaxHeight="18"/>
+                                <RowDefinition Height="0.00001*"/>
+                                <RowDefinition MaxHeight="18"/>
+                            </Grid.RowDefinitions>
+                            <RepeatButton Grid.Row="0" Command="ScrollBar.LineUpCommand" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource BackgroundColor}" />
+                            <Track Name="PART_Track" Grid.Row="1">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageUpCommand" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource BackgroundColor}"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb>
+                                        <Thumb.Template>
+                                            <ControlTemplate>
+                                                <Rectangle Fill="{DynamicResource ForegroundColor}" Width="2">
+                                                    <Rectangle.RadiusX>5</Rectangle.RadiusX>
+                                                    <Rectangle.RadiusY>5</Rectangle.RadiusY>
+                                                </Rectangle>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageDownCommand" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource BackgroundColor}" />
+                                </Track.IncreaseRepeatButton>
+                            </Track>
+                            <RepeatButton Grid.Row="2" Command="ScrollBar.LineDownCommand" Content="" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource BackgroundColor}" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FocusVisual1">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual1}"/>
+            <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ForegroundColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="20" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource ForegroundColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Border CornerRadius="20" BorderBrush="{DynamicResource ForegroundColor}" BorderThickness="1.5" Background="{DynamicResource BackgroundColor}">
+        <Grid>
+            <Canvas x:Name="TitleBar" MouseLeftButtonDown="EnableWindowDragable" Background="{DynamicResource BackgroundColor}" Margin="10,3,10,397" Visibility="Visible">
+                <Label Content="LAME" Height="42" Foreground="{DynamicResource ForegroundColor}" FontSize="25" Width="73" FontFamily="Segoe UI Light" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="0" Canvas.Left="5"/>
+                <Button x:Name="CloseButton" Content="x" FontSize="25" Style="{StaticResource NavbarStyleOne}" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderThickness="0" Canvas.Left="750" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Click="CloseButton_Click" FontFamily="Segoe UI Light"/>
+            </Canvas>
+            <Canvas x:Name="Navbar" Margin="0,38,627,10" Background="{DynamicResource BackgroundColor}" Visibility="Visible" HorizontalAlignment="Right" Width="160">
+                <Button x:Name="AutoCasterNavbar" FontFamily="Segoe UI Light" Content="Auto Caster" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="10" Width="151" Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Click="NavbarButtonClicked"/>
+                <Button x:Name="AutoMessengerNavbar" FontFamily="Segoe UI Light" Content="Auto Messenger" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="33" Width="151" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" Click="NavbarButtonClicked"/>
+                <Button x:Name="NotifierNavbar" FontFamily="Segoe UI Light" Content="Notifier" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="113" Width="151" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" Click="NavbarButtonClicked"/>
+                <Button x:Name="OverlayNavbar" FontFamily="Segoe UI Light" Content="Overlay" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="133" Width="151" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Click="NavbarButtonClicked"/>
+                <Button x:Name="RivenCalculatorNavbar" FontFamily="Segoe UI Light" Content="Riven Calculator" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="9" Canvas.Top="53" Width="151" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Click="NavbarButtonClicked"/>
+                <Button x:Name="CodexNavbar" FontFamily="Segoe UI Light" Content="Codex" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="93" Width="151" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" Click="NavbarButtonClicked"/>
+                <Button x:Name="MarketNavbar" FontFamily="Segoe UI Light" Content="Warframe Market" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="9" Canvas.Top="73" Width="151" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Click="NavbarButtonClicked"/>
+                <Button x:Name="ReleaseNotesNavbar" FontFamily="Segoe UI Light" Content="Release Notes" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Top="317" Width="102" Height="18" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NavbarButtonClicked" Canvas.Left="10"/>
+                <Button x:Name="CreditsNavbar" FontFamily="Segoe UI Light" Content="Credits" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="335" Width="102" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center" Click="NavbarButtonClicked"/>
+                <Button x:Name="SettingsNavbar" FontFamily="Segoe UI Light" Content="Settings" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="353" Width="102" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Click="NavbarButtonClicked"/>
+                <Label x:Name="DisplayName2" Content="Discord Closed" HorizontalAlignment="Left" VerticalAlignment="Center" Width="156" Height="22" FontFamily="Segoe UI Light" Foreground="{DynamicResource ForegroundColor}" Canvas.Top="381" HorizontalContentAlignment="Right" FontSize="10" VerticalContentAlignment="Center"/>
+                <Image x:Name="UserPFP2" Source="images/logo.png" Height="22" Width="22" Canvas.Top="381" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="5"/>
+                <Rectangle Height="1" Width="151" Fill="{DynamicResource IanactiveForground}" Canvas.Top="375" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="5"/>
+                <Label Name="Version" FontFamily="Segoe UI Light" Content="v3.3.0.0" VerticalAlignment="Top" HorizontalAlignment="Center" Canvas.Left="117" Canvas.Top="353" Foreground="{DynamicResource ForegroundColor}" FontSize="9"/>
+            </Canvas>
+            <Canvas x:Name="canvasParent">
+                <Canvas x:Name="ReleaseNotesNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="390" Width="612" Visibility="Hidden" HorizontalAlignment="Center" Canvas.Left="175" VerticalAlignment="Top" Canvas.Top="47">
+
+                </Canvas>
+                <Canvas x:Name="AutoCasterNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="390" Width="612" Visibility="Hidden" HorizontalAlignment="Center" Canvas.Left="175" VerticalAlignment="Top" Canvas.Top="47">
+
+                </Canvas>
+                <Canvas x:Name="AutoMessengerNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="390" Width="612" Visibility="Hidden" HorizontalAlignment="Center" Canvas.Left="175" VerticalAlignment="Top" Canvas.Top="47">
+
+                </Canvas>
+                <Canvas x:Name="NotifierNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="390" Width="612" Visibility="Visible" HorizontalAlignment="Center" Canvas.Left="175" VerticalAlignment="Top" Canvas.Top="47">
+
+                </Canvas>
+                <Canvas x:Name="OverlayNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="390" Width="612" Visibility="Hidden" HorizontalAlignment="Center" Canvas.Left="175" VerticalAlignment="Top" Canvas.Top="47">
+
+                </Canvas>
+                <Canvas x:Name="CodexNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="390" Width="612" Visibility="Hidden" HorizontalAlignment="Center" Canvas.Left="175" VerticalAlignment="Top" Canvas.Top="47">
+
+                </Canvas>
+                <Canvas x:Name="RivenCalculatorNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="390" Width="612" Visibility="Hidden" HorizontalAlignment="Center" Canvas.Left="175" VerticalAlignment="Top" Canvas.Top="47">
+
+                </Canvas>
+                <Canvas x:Name="WarframeMarketNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="390" Width="612" Visibility="Hidden" HorizontalAlignment="Center" Canvas.Left="175" VerticalAlignment="Top" Canvas.Top="47">
+
+                </Canvas>
+                <Canvas x:Name="CreditsNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="390" Width="612" Visibility="Hidden" HorizontalAlignment="Center" Canvas.Left="175" VerticalAlignment="Top" Canvas.Top="47">
+
+                </Canvas>
+                <Canvas x:Name="SettingsNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="390" Width="612" Visibility="Hidden" HorizontalAlignment="Center" Canvas.Left="175" VerticalAlignment="Top" Canvas.Top="47">
+
+                </Canvas>
+            </Canvas>
+        </Grid>
+    </Border>
 </Window>

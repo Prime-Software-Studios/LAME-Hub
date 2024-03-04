@@ -1,11 +1,11 @@
-﻿<Window x:Class="LAME_Hub.DestinyWindow"
+﻿<Window Style="{DynamicResource WindowStyle1}" x:Class="LAME_Hub.DestinyWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LAME_Hub"
         mc:Ignorable="d"
-        Title="DestinyWindow" Height="450" Width="800"
+        Title="Destiny 2 Script Menu" Height="463" Width="829"
         WindowStyle="None"
         AllowsTransparency="True"
         ResizeMode="NoResize"
@@ -15,8 +15,9 @@
         Background="Transparent"
         >
     <Window.Resources>
-        <SolidColorBrush x:Key="BackgroundColor" Color="#23343d" />
-        <SolidColorBrush x:Key="ForegroundColor" Color="#eb7623" />
+        <SolidColorBrush x:Key="BackgroundColor" Color="#0b0a0c" />
+        <SolidColorBrush x:Key="ForegroundColor" Color="#539db5" />
+        <SolidColorBrush x:Key="IanactiveForground" Color="#3e3d3f"/>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -26,302 +27,389 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#23343d"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#23343d"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#23343d"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#eb7623"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#eb7623"/>
         <Style x:Key="NavbarStyleOne" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BackgroundColor}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="1"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                        <Border x:Name="border" CornerRadius="0" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
                             <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsDefaulted" Value="true">
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource ForegroundColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="WindowStyle1" TargetType="{x:Type Window}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ScrollBarStyle" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition MaxHeight="18"/>
+                                <RowDefinition Height="0.00001*"/>
+                                <RowDefinition MaxHeight="18"/>
+                            </Grid.RowDefinitions>
+                            <RepeatButton Grid.Row="0" Command="ScrollBar.LineUpCommand" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource BackgroundColor}" />
+                            <Track Name="PART_Track" Grid.Row="1">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageUpCommand" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource BackgroundColor}"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb>
+                                        <Thumb.Template>
+                                            <ControlTemplate>
+                                                <Rectangle Fill="{DynamicResource ForegroundColor}" Width="2">
+                                                    <Rectangle.RadiusX>5</Rectangle.RadiusX>
+                                                    <Rectangle.RadiusY>5</Rectangle.RadiusY>
+                                                </Rectangle>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageDownCommand" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource BackgroundColor}" />
+                                </Track.IncreaseRepeatButton>
+                            </Track>
+                            <RepeatButton Grid.Row="2" Command="ScrollBar.LineDownCommand" Content="" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource BackgroundColor}" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
-    <Grid>
-        <Image x:Name="LoadingImage" Source="images/logo.png" Visibility="Visible" Canvas.Left="24" Canvas.Top="98" Height="232" Width="276">
-            <Image.Triggers>
-                <EventTrigger RoutedEvent="Image.Loaded">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                         From="1.0" To="0.0" 
-                         AutoReverse="True" 
-                         RepeatBehavior="Forever" 
-                         Duration="0:0:1"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Image.Triggers>
-        </Image>
-        <Canvas x:Name="TitleBar" MouseLeftButtonDown="EnableWindowDragable" Background="{DynamicResource BackgroundColor}" Margin="0,0,0,412" Visibility="Hidden">
-            <Button x:Name="CloseButton" Style="{StaticResource NavbarStyleOne}" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderThickness="0" Canvas.Left="765" Canvas.Top="3" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Click="CloseButton_Click">
-                <Image x:Name="CloseButtonImage" Source="images/close_icon.png" Height="25" Width="25" Canvas.Left="10" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            </Button>
-            <Image x:Name="Logo" Source="images/Logo.png" Height="26" Width="25" Canvas.Left="10" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <Rectangle x:Name="TitleBarBackground" Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="0" Canvas.Top="35" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        </Canvas>
-        <Canvas x:Name="Navbar" Margin="0,38,642,0" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
-            <Button x:Name="SeasonalXPNavbar" Content="Seasonal XP" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="5" Width="135" Height="33" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Click="NavbarButtonClicked"/>
-            <Button x:Name="WeaponXPNavbar" Content="Weapon XP" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="43" Width="135" Height="33" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Click="NavbarButtonClicked"/>
-            <Button x:Name="FishingNavbar" Content="Fishing" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="81" Width="135" Height="33" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Click="NavbarButtonClicked"/>
-            <Button x:Name="RotationsNavbar" Content="Damage Rotations" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="119" Width="135" Height="33" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Click="NavbarButtonClicked"/>
-            <Button x:Name="MovementNavbar" Content="Movement" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="157" Width="135" Height="33" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Click="NavbarButtonClicked"/>
-            <Button x:Name="SwapperNavbar" Content="Loadout Swapper" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="195" Width="135" Height="33" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" Click="NavbarButtonClicked"/>
-            <Button x:Name="ReleaseNotesNavbar" Content="Release Notes" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="272" Width="134" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Click="NavbarButtonClicked"/>
-            <Button x:Name="CreditsNavbar" Content="Credits" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="302" Width="134" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Click="NavbarButtonClicked"/>
-            <Button x:Name="SettingsNavbar" Content="Settings" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="335" Width="134" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Click="NavbarButtonClicked"/>
-            <Button x:Name="DiscordNavbar" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="62" Canvas.Top="362" Width="30" BorderThickness="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Click="DiscordNavbar_Click">
-                <Image x:Name="DiscordNavbarImage" Source="images/discord_icon.png" Height="25" Width="25" Canvas.Left="10" Canvas.Top="5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            </Button>
-            <Button x:Name="DonateNavbar" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="97" Canvas.Top="362" Width="30" BorderThickness="0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Click="DonateNavbar_Click">
-                <Image x:Name="DonateNavbarImage" Source="images/kofi_icon.png" Height="25" Width="25" Canvas.Left="10" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            </Button>
-            <Button x:Name="InfoNavbar" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="27" Canvas.Top="362" Width="30" BorderThickness="0" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Click="InfoNavbar_Click">
-                <Image x:Name="InfoNavbarImage" Source="images/info.png" Height="25" Width="25" Canvas.Left="10" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            </Button>
-            <Label Name="Version" Content="v2.2.0.0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Canvas.Left="58" Canvas.Top="390" Foreground="{DynamicResource ForegroundColor}" FontSize="9"/>
-            <Rectangle Fill="{DynamicResource ForegroundColor}" Height="412" Canvas.Left="156" Canvas.Top="0" Width="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        </Canvas>
-        <Canvas x:Name="canvasParent" Visibility="Hidden">
-            <Canvas x:Name="SeasonalXPNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
-                <Label x:Name="SeasonalXPLabel" Content="Seasonal XP Settings" Canvas.Left="225" Canvas.Top="10" Foreground="{DynamicResource ForegroundColor}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="225" Canvas.Top="47" Width="193" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Label x:Name="SeasonalXPBindLabel" Content="Toggle On / Off" Canvas.Left="275" Canvas.Top="103" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Button x:Name="SeasonalXPBind" Height="30" Width="86" Content="Bind" Canvas.Left="278" Canvas.Top="134" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" Click="SeasonalXPBind_Click"/>
-                <Label x:Name="SeasonalXPDelayLabel" Content="Cycle Delay (MS)" Canvas.Left="272" Canvas.Top="187" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBox x:Name="SeasonalXPDelay" Height="24" Width="54" Text="2200" Canvas.Left="294" Canvas.Top="218" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" FontSize="15" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="SeasonalXPDelay_TextChanged"/>
-                <Label x:Name="SeasonalXTitanLabel" Content="Titan Mode" Canvas.Left="225" Canvas.Top="263" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Label x:Name="SeasonalXPHunterLabel" Content="Hunter Mode" Canvas.Left="337" Canvas.Top="263" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Button x:Name="SeasonalXPTitanMode" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" Style="{StaticResource NavbarStyleOne}" Canvas.Left="245" Canvas.Top="304" HorizontalAlignment="Center" VerticalAlignment="Top" Click="SeasonalXPTitanMode_Click"/>
-                <Button x:Name="SeasonalXPHunterMode" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" Style="{StaticResource NavbarStyleOne}" Canvas.Left="363" Canvas.Top="304" HorizontalAlignment="Center" VerticalAlignment="Top" Click="SeasonalXPHunterMode_Click"/>
+    <Border CornerRadius="20" BorderThickness="1.5" BorderBrush="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}">
+        <Grid Background="{DynamicResource BackgroundColor}" Margin="9,9,9,9">
+            <Image x:Name="LoadingImage" Source="images/logo.png" Visibility="Hidden" Canvas.Left="24" Canvas.Top="98" Height="232" Width="276">
+                <Image.Triggers>
+                    <EventTrigger RoutedEvent="Image.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                      From="1.0" To="0.0" 
+                      AutoReverse="True" 
+                      RepeatBehavior="Forever" 
+                      Duration="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Image.Triggers>
+            </Image>
+            <Canvas x:Name="TitleBar" MouseLeftButtonDown="EnableWindowDragable" Background="{DynamicResource BackgroundColor}" Margin="10,0,10,412" Visibility="Visible">
+                <Label Content="LAME" Height="42" Foreground="{DynamicResource ForegroundColor}" FontSize="25" Width="73" FontFamily="Segoe UI Light" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="1" Canvas.Left="-6"/>
+                <Button x:Name="CloseButton" Content="x" FontSize="25" Style="{StaticResource NavbarStyleOne}" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderThickness="0" Canvas.Left="760" Canvas.Top="1" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Click="CloseButton_Click" FontFamily="Segoe UI Light"/>
             </Canvas>
-            <Canvas x:Name="WeaponXPNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
-                <Label x:Name="WeaponXPLabel" Content="Weapon XP Settings" Canvas.Left="227" Canvas.Top="10" Foreground="{DynamicResource ForegroundColor}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="227" Canvas.Top="47" Width="188" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Label x:Name="WeaponXPBindLabel" Content="Toggle On / Off" Canvas.Left="275" Canvas.Top="103" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Button x:Name="WeaponXPBind" Height="30" Width="86" Content="Bind" Canvas.Left="278" Canvas.Top="134" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" Click="WeaponXPBind_Click"/>
+            <Canvas x:Name="Navbar" Margin="0,38,634,0" Background="{DynamicResource BackgroundColor}" Visibility="Visible">
+                <Button x:Name="SeasonalXPNavbar" FontFamily="Segoe UI Light" Content="AFK XP" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="10" Width="151" Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Click="NavbarButtonClicked"/>
+                <Button x:Name="FishingNavbar" FontFamily="Segoe UI Light" Content="Fishing" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="33" Width="151" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" Click="NavbarButtonClicked"/>
+                <Button x:Name="RotationsNavbar" FontFamily="Segoe UI Light" Content="Damage Rotations" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="53" Width="151" Height="23" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" Click="NavbarButtonClicked"/>
+                <Button x:Name="MovementNavbar" FontFamily="Segoe UI Light" Content="Movement" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="76" Width="151" Height="22" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" Click="NavbarButtonClicked"/>
+                <Button x:Name="SwapperNavbar" FontFamily="Segoe UI Light" Content="Loadout Swapper" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="98" Width="151" Height="19" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" Click="NavbarButtonClicked"/>
+                <Button x:Name="ReleaseNotesNavbar" FontFamily="Segoe UI Light" Content="Release Notes" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Top="317" Width="102" Height="18" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NavbarButtonClicked" Canvas.Left="10"/>
+                <Button x:Name="CreditsNavbar" FontFamily="Segoe UI Light" Content="Credits" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="335" Width="102" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center" Click="NavbarButtonClicked"/>
+                <Button x:Name="SettingsNavbar" FontFamily="Segoe UI Light" Content="Settings" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="353" Width="102" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Click="NavbarButtonClicked"/>
+                <Button x:Name="StatsNavbar" FontFamily="Segoe UI Light" Content="User Statistics" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="297" Width="102" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Click="NavbarButtonClicked"/>
+                <Button x:Name="MiscNavbar" FontFamily="Segoe UI Light" Content="Misc" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="117" Width="102" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Click="NavbarButtonClicked"/>
+                <Label x:Name="DisplayName2" Content="Discord Closed" HorizontalAlignment="Center" VerticalAlignment="Top" Width="156" Height="22" FontFamily="Segoe UI Light" Foreground="{DynamicResource ForegroundColor}" Canvas.Top="381" HorizontalContentAlignment="Right" FontSize="10" Canvas.Left="5" VerticalContentAlignment="Center"/>
+                <Image x:Name="UserPFP2" Source="images/logo.png" Height="22" Width="22" Canvas.Top="381" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="5"/>
+                <Rectangle Height="1" Width="151" Fill="{DynamicResource IanactiveForground}" Canvas.Top="375" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="5"/>
+                <Label Name="Version" FontFamily="Segoe UI Light" Content="v3.3.0.0" VerticalAlignment="Top" HorizontalAlignment="Center" Canvas.Left="117" Canvas.Top="353" Foreground="{DynamicResource ForegroundColor}" FontSize="9"/>
             </Canvas>
-            <Canvas x:Name="FishingNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
-                <Label x:Name="FishingLabel" Content="Fishing Settings" Canvas.Left="247" Canvas.Top="10" Foreground="{DynamicResource ForegroundColor}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="247" Canvas.Top="47" Width="149" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Label x:Name="FishingXPBindLabel" Content="Toggle On / Off" Canvas.Left="275" Canvas.Top="103" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Button x:Name="FishingXPBind" Height="30" Width="86" Content="Bind" Canvas.Left="278" Canvas.Top="134" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" Click="FishingXPBind_Click"/>
-                <TextBox x:Name="FishingDelay" Height="24" Width="54" Text="2200" Canvas.Left="294" Canvas.Top="218" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" FontSize="15" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="FishingXPDelay_TextChanged"/>
-                <Label x:Name="FishingDelayLabel" Content="Delay Between Rumble And Catch (MS)" Canvas.Left="213" Canvas.Top="187" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Label x:Name="FishingExperimentLabel" Content="(This Is Using A Highly Experimental Method To Catch Fish And Requires A Lot Of Tuning Of The Delay To Work For You)" Canvas.Top="54" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="642" HorizontalContentAlignment="Center" Canvas.Left="1"/>
+            <Canvas x:Name="canvasParent" Visibility="Visible">
+                <Canvas x:Name="StatsNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Visibility="Visible">
+                    <ScrollViewer Height="412" Width="642" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ScrollViewer.Resources>
+                            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle}" />
+                        </ScrollViewer.Resources>
+                        <Canvas Height="888" Width="642">
+                            <Label Content="XP Statistics" Canvas.Left="10" Foreground="{DynamicResource ForegroundColor}" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Light"/>
+                            <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="28" Width="605" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <Label Content="Fishing Statistics" Canvas.Left="13" Foreground="{DynamicResource ForegroundColor}" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe UI Light" Canvas.Top="267"/>
+                            <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="293" Width="605" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <Label Content="Damage Rotation Statistics" Canvas.Left="12" Foreground="{DynamicResource ForegroundColor}" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Light" Canvas.Top="384"/>
+                            <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="410" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <Label Content="Movement Statistics" Canvas.Left="10" Foreground="{DynamicResource ForegroundColor}" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Light" Canvas.Top="502"/>
+                            <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="529" Width="605" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <Label Content="Loadout Swapper Statistics" Canvas.Left="10" Foreground="{DynamicResource ForegroundColor}" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Light" Canvas.Top="710"/>
+                            <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="736" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <Label Content="Misc Statistics" Canvas.Left="10" Foreground="{DynamicResource ForegroundColor}" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Light" Canvas.Top="783"/>
+                            <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="810" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <Label Content="Total Seasonal XP Gained :" Canvas.Left="10" Canvas.Top="37" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Weapon Levels Gained :" Canvas.Left="10" Canvas.Top="67" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Time Using Seasonal XP Script :" Canvas.Left="10" Canvas.Top="97" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Time Using Weapon XP Script :" Canvas.Left="10" Canvas.Top="127" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Times Titan Mode Used :" Canvas.Left="10" Canvas.Top="157" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Times Hunter Mode Used :" Canvas.Left="10" Canvas.Top="187" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Times Bow Mode Used :" Canvas.Left="10" Canvas.Top="217" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Fish Caught :" Canvas.Left="10" Canvas.Top="300" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Time Using Fishing Script :" Canvas.Left="10" Canvas.Top="330" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Times Bili Bili Used :" Canvas.Left="15" Canvas.Top="416" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Times Lament Used :" Canvas.Left="15" Canvas.Top="446" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Times Groundskate Used :" Canvas.Left="10" Canvas.Top="536" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Times Edgeskate Used :" Canvas.Left="9" Canvas.Top="566" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Times Snapskate Used :" Canvas.Left="10" Canvas.Top="596" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Times Strandskate Used :" Canvas.Left="10" Canvas.Top="626" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Times Shatterskate Mode Used :" Canvas.Left="10" Canvas.Top="661" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Times Loadout Swapped :" Canvas.Left="10" Canvas.Top="743" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Times Good Boy Petted :" Canvas.Left="10" Canvas.Top="817" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label Content="Total Time Using Good Boy Protocol :" Canvas.Left="10" Canvas.Top="847" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                        </Canvas>
+                    </ScrollViewer>
+                </Canvas>
+                <Canvas x:Name="MiscNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
+                    <Label Content="Hotkeys" Canvas.Left="10" Foreground="{DynamicResource ForegroundColor}" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Light"/>
+                    <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="28" Width="605" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Canvas>
+                <Canvas x:Name="SeasonalXPNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
+                    <Label Content="Hotkeys" Canvas.Left="10" Foreground="{DynamicResource ForegroundColor}" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Light"/>
+                    <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="28" Width="605" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label Content="Seasonal XP Delays" Canvas.Left="10" Foreground="{DynamicResource ForegroundColor}" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Light" Canvas.Top="105"/>
+                    <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="132" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Label Content="Seasonal XP Modes" Canvas.Left="10" Foreground="{DynamicResource ForegroundColor}" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Light" Canvas.Top="186"/>
+                    <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="213" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Label Content="Weapon XP Modes" Canvas.Left="10" Foreground="{DynamicResource ForegroundColor}" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Light" Canvas.Top="308"/>
+                    <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="334" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Label x:Name="SeasonalXPBindLabel" Content="Seasonal XP Toggle" Canvas.Left="10" Canvas.Top="37" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                    <Button x:Name="SeasonalXPBind" Height="30" Width="100" FontSize="10" Content="Bind" Canvas.Left="515" Canvas.Top="37" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Click="SeasonalXPBind_Click" FontFamily="Segoe UI Light"/>
+                    <Label x:Name="SeasonalXPDelayLabel" Content="This Is The Delay Between Each Cycle" Canvas.Left="10" Canvas.Top="139" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                    <TextBox x:Name="SeasonalXPDelay" Height="24" Width="54" Text="2200" Canvas.Left="538" Canvas.Top="140" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" FontSize="15" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="SeasonalXPDelay_TextChanged"/>
+                    <Label x:Name="SeasonalXTitanLabel" Content="Titan Mode" Canvas.Left="10" Canvas.Top="220" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                    <Label x:Name="SeasonalXPHunterLabel" Content="Hunter Mode" Canvas.Left="10" Canvas.Top="255" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Light" FontSize="15"/>
+                    <Button x:Name="SeasonalXPTitanMode" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Canvas.Left="550" Canvas.Top="220" HorizontalAlignment="Center" VerticalAlignment="Top" Click="SeasonalXPTitanMode_Click"/>
+                    <Button x:Name="SeasonalXPHunterMode" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Canvas.Left="550" Canvas.Top="255" HorizontalAlignment="Center" VerticalAlignment="Top" Click="SeasonalXPHunterMode_Click"/>
+                    <Label x:Name="WeaponXPBindLabel" Content="Weapon XP Toggle" Canvas.Left="10" Canvas.Top="67" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                    <Button x:Name="WeaponXPBind" Height="30" Width="100" FontSize="10" Content="Bind" Canvas.Left="515" Canvas.Top="72" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Click="WeaponXPBind_Click" FontFamily="Segoe UI Light"/>
+                    <Label x:Name="WeaponXPBowLabel" Content="Bow Mode" Canvas.Left="10" Canvas.Top="376" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="15" Width="180"/>
+                    <Button x:Name="WeaponXPBowMode" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Canvas.Left="550" Canvas.Top="341" HorizontalAlignment="Center" VerticalAlignment="Top" Click="SeasonalXPTitanMode_Click"/>
+                    <Label x:Name="WeaponXPNormalLabel" Content="Normal Mode" Canvas.Left="10" Canvas.Top="341" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="15"/>
+                    <Button x:Name="WeaponXPNormalMode" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Canvas.Left="550" Canvas.Top="376" HorizontalAlignment="Center" VerticalAlignment="Top" Click="SeasonalXPTitanMode_Click"/>
+                </Canvas>
+                <Canvas x:Name="FishingNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
+                    <Label Content="Hotkeys" Canvas.Left="10" Canvas.Top="3" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" FontFamily="Segoe UI Light" Width="65"/>
+                    <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="28" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Label Content="Delays" Canvas.Left="10" Canvas.Top="79" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13" FontFamily="Segoe UI Light" Width="65"/>
+                    <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="106" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Label x:Name="FishingXPBindLabel" Content="Fishing Script Toggle" Canvas.Left="10" Canvas.Top="35" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="15"/>
+                    <Button x:Name="FishingXPBind" Height="30" Width="100" FontSize="10" Content="Bind" Canvas.Left="515" Canvas.Top="37" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Click="FishingXPBind_Click"/>
+                    <TextBox x:Name="FishingDelay" Height="24" Width="54" Text="1000" Canvas.Left="538" Canvas.Top="119" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" FontSize="15" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="FishingXPDelay_TextChanged"/>
+                    <Label x:Name="FishingDelayLabel" Content="Delay Between Rumble And Catch (MS)" Canvas.Left="10" Canvas.Top="113" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="15"/>
+                    <Label x:Name="FishingExperimentLabel" Content="(This Is Using A Highly Experimental Method To Catch Fish And Requires A Lot Of Tuning Of The Delay To Work For You)" Canvas.Top="380" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="548" HorizontalContentAlignment="Center" FontSize="10" Canvas.Left="38"/>
+                </Canvas>
+                <Canvas x:Name="RotationsNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
+                    <Label Content="Hotkeys" Canvas.Left="10" Canvas.Top="3" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" FontFamily="Segoe UI Light" Width="65"/>
+                    <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="28" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Label Content="Loop Options" Canvas.Left="10" Foreground="{DynamicResource ForegroundColor}" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Light" Canvas.Top="123"/>
+                    <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="148" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Label x:Name="LamentRotationBindLabel" Content="Lament Toggle" Canvas.Left="10" Canvas.Top="72" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                    <Button x:Name="LamentRotationBind" Height="30" Width="100" FontSize="10" Content="Bind" Canvas.Left="515" Canvas.Top="72" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Click="LamentRotationBind_Click"/>
+                    <Label x:Name="BiliRotationBindLabel" Content="Bili Bili Toggle" Canvas.Left="10" Canvas.Top="35" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                    <Label x:Name="RotationRepeatInfiniteLabel" Content="Loop Rotation Infinitely" Canvas.Left="10" Canvas.Top="152" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                    <Button x:Name="BiliRotationBind" Height="30" Width="100" FontSize="10" Content="Bind" Canvas.Left="515" Canvas.Top="35" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}"/>
+                    <Label x:Name="RotationRepeatOnceLabel" Content="Loop Rotation Once" Canvas.Left="10" Canvas.Top="184" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                    <Button x:Name="RotationRepeatOnce" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Canvas.Left="550" Canvas.Top="190" HorizontalAlignment="Left" VerticalAlignment="Top" Click="RotationRepeatOnce_Click"/>
+                    <Button x:Name="RotationRepeatInfinite" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}"  BorderBrush="{DynamicResource ForegroundColor}"  Canvas.Left="550" Canvas.Top="155" HorizontalAlignment="Left" VerticalAlignment="Top" Click="RotationRepeatInfinite_Click"/>
+                    <Label x:Name="RotationRepeatSelectLabel" Content="Loop Rotation        Times" Canvas.Left="10" Canvas.Top="218" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                    <Button x:Name="RotationRepeatSelect" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}"  BorderBrush="{DynamicResource ForegroundColor}" Canvas.Left="550" Canvas.Top="225" HorizontalAlignment="Center" VerticalAlignment="Top" Click="RotationRepeatSelect_Click"/>
+                    <TextBox x:Name="RotationRepeatSelectBox" Height="19" Width="19" Text="1" Canvas.Left="111" Canvas.Top="224" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="RotationRepeatSelectBox_TextChanged"/>
+                </Canvas>
+                <Canvas x:Name="MovementNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
+                    <ScrollViewer Height="411" Width="642" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <ScrollViewer.Resources>
+                            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle}" />
+                        </ScrollViewer.Resources>
+                        <Canvas Height="520" Width="642">
+                            <Label Content="Hotkeys" Canvas.Left="10" Canvas.Top="3" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" FontFamily="Segoe UI Light" Width="65"/>
+                            <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="28" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <Label Content="Modes" Canvas.Left="10" Canvas.Top="177" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13" FontFamily="Segoe UI Light" Width="65"/>
+                            <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="202" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <Label Content="Delays" Canvas.Left="10" Canvas.Top="359" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13" FontFamily="Segoe UI Light" Width="65"/>
+                            <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="384" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <Label x:Name="GroundSkateBindLabel" Content="Groundskate" Canvas.Left="10" Canvas.Top="33" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Button x:Name="GroundSkateBind" Height="30" Width="100" FontSize="10" Content="Bind" Canvas.Left="515" Canvas.Top="35" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Click="GroundSkateBind_Click"/>
+                            <Label x:Name="EdgeSkateBindLabel" Content="Edgeskate" Canvas.Left="10" Canvas.Top="64" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Button x:Name="EdgeSkateBind" Height="30" Width="100" FontSize="10" Content="Bind" Canvas.Left="515" Canvas.Top="70" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Click="EdgeSkateBind_Click"/>
+                            <Label x:Name="SnapSkateBindLabel" Content="Snapskate" Canvas.Left="10" Canvas.Top="97" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="15"/>
+                            <Button x:Name="SnapSkateBind" Height="30" Width="100" FontSize="10" Content="Bind" Canvas.Left="515" Canvas.Top="103" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Click="SnapSkateBind_Click"/>
+                            <Label x:Name="StrandSkateBindLabel" Content="Strandskate" Canvas.Left="10" Canvas.Top="132" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Button x:Name="StrandSkateBind" Height="30" Width="100" FontSize="10" Content="Bind" Canvas.Left="515" Canvas.Top="138" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Click="StrandSkateBind_Click"/>
+                            <TextBox x:Name="MovementDelayOne" Height="24" Width="54" Text="25" Canvas.Left="538" Canvas.Top="393" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" FontSize="15" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="MovementDelayOne_TextChanged"/>
+                            <Label x:Name="MovementDelayOneLabel" Content="Delay One [MS]" Canvas.Left="10" Canvas.Top="393" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <TextBox x:Name="MovementDelayTwo" Height="24" Width="54" Text="35" Canvas.Left="538" Canvas.Top="422" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" FontSize="15" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="MovementDelayTwo_TextChanged"/>
+                            <Label x:Name="MovementDelayTwoLabel" Content="Delay Two [MS]" Canvas.Left="10" Canvas.Top="422" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <TextBox x:Name="MovementDelayThree" Height="24" Width="54" Text="0" Canvas.Left="538" Canvas.Top="451" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" FontSize="15" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="MovementDelayThree_TextChanged"/>
+                            <Label x:Name="MovementDelayThreeLabel" Content="Delay Three [MS]" Canvas.Left="10" Canvas.Top="451" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <TextBox x:Name="MovementSwapBackDelay" Height="24" Width="54" Text="400" Canvas.Left="538" Canvas.Top="480" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" FontSize="15" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="MovementSwapBackDelay_TextChanged"/>
+                            <Label x:Name="MovementSwapBackDelayLabel" Content="Swap Back Delay [MS]" Canvas.Left="10" Canvas.Top="480" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label x:Name="PrimarySwapLabel" Content="Primary Weapon Swapback" Canvas.Left="10" Canvas.Top="211" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Button x:Name="PrimarySwap" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Canvas.Left="550" Canvas.Top="209" HorizontalAlignment="Left" VerticalAlignment="Top" Click="PrimarySwap_Click"/>
+                            <Label x:Name="SpecialSwapLabel" Content="Special Weapon Swapback" Canvas.Left="10" Canvas.Top="241" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Button x:Name="SpecialSwap" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Canvas.Left="550" Canvas.Top="244" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SpecialSwap_Click"/>
+                            <Label x:Name="HeavySwapLabel" Content="Heavy Weapon Swapback" Canvas.Left="10" Canvas.Top="276" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Button x:Name="HeavySwap" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Canvas.Left="550" Canvas.Top="279" HorizontalAlignment="Left" VerticalAlignment="Top" Click="HeavySwap_Click"/>
+                            <Label x:Name="ShatterModeLabel" Content="Swap To Shatterdive Mode" Canvas.Left="10" Canvas.Top="311" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Button x:Name="ShatterMode" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Canvas.Left="550" Canvas.Top="314" HorizontalAlignment="Center" VerticalAlignment="Top" Click="ShatterMode_Click"/>
+                        </Canvas>
+                    </ScrollViewer>
+                </Canvas>
+                <Canvas x:Name="SwapperNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
+                    <ScrollViewer Height="411" Width="642" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <ScrollViewer.Resources>
+                            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle}" />
+                        </ScrollViewer.Resources>
+                        <Canvas Height="462" Width="642">
+                            <Label Content="Hotkeys" Canvas.Left="10" Canvas.Top="3" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" FontFamily="Segoe UI Light" Width="65"/>
+                            <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="28" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <Label Content="Delays" Canvas.Left="10" Canvas.Top="396" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13" FontFamily="Segoe UI Light" Width="65"/>
+                            <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="423" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <Label x:Name="LoaudoutOneLabel" Content="Loadout I" Canvas.Left="10" Canvas.Top="35" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label x:Name="LoaudoutTwoLabel" Content="Loadout II" Canvas.Left="10" Canvas.Top="70" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label x:Name="LoaudoutThreeLabel" Content="Loadout III" Canvas.Left="10" Canvas.Top="105" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label x:Name="LoaudoutFourLabel" Content="Loadout IV" Canvas.Left="10" Canvas.Top="140" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label x:Name="LoaudoutFiveLabel" Content="Loadout V" Canvas.Left="10" Canvas.Top="175" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Button x:Name="LoadoutOneBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="35" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Click="LoadoutOneBind_Click" FontSize="10"/>
+                            <Button x:Name="LoadoutTwoBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="70" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Click="LoadoutTwoBind_Click" FontSize="10"/>
+                            <Button x:Name="LoadoutThreeBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="105" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="10" Click="LoadoutThreeBind_Click"/>
+                            <Button x:Name="LoadoutFourBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="140" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="10" Click="LoadoutFourBind_Click"/>
+                            <Button x:Name="LoadoutFiveBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="175" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="10" Click="LoadoutFiveBind_Click"/>
+                            <Label x:Name="LoadoutSixLabel" Content="Loadout VI" Canvas.Left="10" Canvas.Top="210" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label x:Name="LoadoutSevenLabel" Content="Loadout VII" Canvas.Left="10" Canvas.Top="245" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label x:Name="LoadoutEightLabel" Content="Loadout VIII" Canvas.Left="10" Canvas.Top="280" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label x:Name="LoadoutNineLabel" Content="Loadout IX" Canvas.Left="10" Canvas.Top="315" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Label x:Name="LoadoutTenLabel" Content="Loadout X" Canvas.Left="10" Canvas.Top="350" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Button x:Name="LoadoutSixBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="210" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="10" Click="LoadoutSixBind_Click"/>
+                            <Button x:Name="LoadoutSevenBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="245" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="10" Click="LoadoutSevenBind_Click"/>
+                            <Button x:Name="LoadoutEightBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="280" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="10" Click="LoadoutEightBind_Click"/>
+                            <Button x:Name="LoadoutNineBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="315" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="10" Click="LoadoutNineBind_Click"/>
+                            <Button x:Name="LoadoutTenBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="350" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="10" Click="LoadoutTenBind_Click"/>
+                            <Label x:Name="LoadoutSwapperDelay"  Content="Loadout Swap Delay" Canvas.Left="10" Canvas.Top="430" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <TextBox x:Name="LoadoutSwapperDelayBox" Height="24" Width="54" Text="0" Canvas.Left="538" Canvas.Top="430" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" FontSize="15" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="LoadoutSwapperDelayBox_TextChanged"/>
+                        </Canvas>
+                    </ScrollViewer>
+                </Canvas>
+                <Canvas x:Name="ReleaseNotesNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Width="622" Canvas.Left="10" Canvas.Top="10" Height="392" TextAlignment="Left" Foreground="{DynamicResource ForegroundColor}" FontSize="13" FontFamily="Segoe UI Light">
+                 + Complete Rewrite Of The Hub Into More Modular Form
+                  <LineBreak/>
+                 + Changed Navbars Into One So Its More Compact
+                 <LineBreak/>
+                 + Changed Lament Tab Into Damage Rotations Tab
+                 <LineBreak/>
+                 + Added Placeholder Button For The Coming Settings Tab
+                 <LineBreak/>
+                 + Added New Button To Navbar (Information)
+                 <LineBreak/>
+                 + Added New Script (Loadout Swapper)
+                 <LineBreak/>
+                 + Added UI For New Non Functional Script (Bili Bili Damage Rotation)
+                 <LineBreak/>
+                 + Fixed A Bug Where The Hub Wouldnt Load Script Menus
+                 <LineBreak/>
+                 <LineBreak/>
+                 Next Update
+                 <LineBreak/>
+                 <LineBreak/>
+                 + Adding Settings Tab
+                 <LineBreak/>
+                 + Adding Functional Bili Bili Damage Rotation
+                 <LineBreak/>
+                 + Adding Prism To Core Conversion Script
+                 <LineBreak/>
+                 + Adding Complete Script Information To https://prime-software.xyz
+                 <LineBreak/>
+                 + Adding The Ability To Change The Color Of The Hub
+                 <LineBreak/>
+                 <LineBreak/>
+                    </TextBlock>
+                    <Label Height="24" Width="199" Foreground="{DynamicResource IanactiveForground}" Content="For Any Suggestions Or Bugs Contact Me On" Canvas.Left="10" Canvas.Top="381" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="10" FontFamily="Segoe UI Light"/>
+                    <Label Height="24" Width="41" Foreground="{DynamicResource ForegroundColor}" Content="Discord" FontSize="10" Canvas.Left="203" Canvas.Top="381" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Light" Background="Transparent" MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
+                </Canvas>
+                <Canvas x:Name="CreditsNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Width="622" Canvas.Left="10" Canvas.Top="10" Height="348" Foreground="{DynamicResource ForegroundColor}" FontSize="16" TextAlignment="Left" FontFamily="Segoe UI Light">
+                 Lead Developer   -   "_leopoldprime"
+                  <LineBreak/>
+                 Concept Art For UI   -   "stellariko"
+                  <LineBreak/>
+                 Website Were I Got The LAME Theme   -   "antrament"
+                  <LineBreak/>
+                 Lament Damage Rotation Timings And Inputs   -   "lonewolf1802"
+                  <LineBreak/>
+                 Modularity Rewrite Encouragement   -   "waifushork"
+                  <LineBreak/>
+                 Binding System   -   "waifushork"
+                  <LineBreak/>
+                 Code Proofreading   -   "waifushork"
+                    </TextBlock>
+                </Canvas>
+                <Canvas x:Name="SettingsNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="642" Visibility="Hidden" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ScrollViewer Height="412" Width="642" Background="{DynamicResource BackgroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <ScrollViewer.Resources>
+                            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle}" />
+                        </ScrollViewer.Resources>
+                        <Canvas Height="516">
+                            <Label Content="User Information" FontSize="13" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" Canvas.Left="10" VerticalAlignment="Center"/>
+                            <Label Content="UI Settings" FontSize="13" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" Canvas.Left="10" VerticalAlignment="Top" Canvas.Top="166"/>
+                            <Label Content="Destiny 2 Keybind Settings" FontSize="13" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" Canvas.Left="10" VerticalAlignment="Top" Canvas.Top="297"/>
+                            <Label x:Name="Username" Content="Discord Closed" HorizontalAlignment="Left" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="66" HorizontalContentAlignment="Right"/>
+                            <Label x:Name="DisplayName" Content="Discord Closed" HorizontalAlignment="Center" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="35" HorizontalContentAlignment="Right"/>
+                            <Label x:Name="UserID" Content="Discord Closed" HorizontalAlignment="Left" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="97" HorizontalContentAlignment="Right"/>
+                            <Label Content="Username" HorizontalAlignment="Left" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="66" HorizontalContentAlignment="Left"/>
+                            <Label Content="Display Name" HorizontalAlignment="Center" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="35" HorizontalContentAlignment="Left"/>
+                            <Label Content="Discord ID" HorizontalAlignment="Left" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="97" HorizontalContentAlignment="Left"/>
+                            <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="28" Width="605" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBox x:Name="ForegroundInputBox" Text="#539db5" Height="22" Width="70" Canvas.Left="530" Canvas.Top="212" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="16" TextChanged="ForegroundInputBox_TextChanged"/>
+                            <Label x:Name="ForegroundLabel" Content="Accent Color" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Height="27" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="207"/>
+                            <TextBox x:Name="BackgroundInputBox" Text="#0b0a0c" Height="22" Width="70" Canvas.Left="530" Canvas.Top="245" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="16" TextChanged="BackgroundInputBox_TextChanged"/>
+                            <Label x:Name="BackgroundLabel" Content="Background Color" HorizontalAlignment="Center" VerticalAlignment="Top" Width="Auto" Height="32" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="240"/>
+                            <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="193" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <Button x:Name="SuperBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="332" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}"  FontSize="10" Click="SuperBind_Click"/>
+                            <Label x:Name="SuperBindLabel" Height="30" Content="Super Key" Canvas.Left="17" Canvas.Top="332" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Button x:Name="PrimaryWeaponBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="367" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="10" Click="PrimaryWeaponBind_Click"/>
+                            <Label x:Name="PrimaryWeaponBindLabel" Height="30"  Content="Primary Weapon Key" Canvas.Left="17" Canvas.Top="367" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Button x:Name="SpecialWeaponBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="404" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="10" Click="SpecialWeaponBind_Click"/>
+                            <Label x:Name="SpecialWeaponBindLabel" Height="30" Content="Special Weapon Key" Canvas.Left="17" Canvas.Top="404" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Button x:Name="HeavyWeaponBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="442" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="10" Click="HeavyWeaponBind_Click"/>
+                            <Label x:Name="HeavyWeaponBindLabel" Height="30"  Content="Heavy Weapon Key" Canvas.Left="17" Canvas.Top="442" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Button x:Name="AirMoveBind" Height="30" Width="100" Content="Bind" Canvas.Left="515" Canvas.Top="477" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="10" Click="AirMoveBind_Click"/>
+                            <Label x:Name="AirMoveBindLabel" Height="30" Content="Air Move Key" Canvas.Left="17" Canvas.Top="475" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontFamily="Segoe UI Light"/>
+                            <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="323" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        </Canvas>
+                    </ScrollViewer>
+                </Canvas>
             </Canvas>
-            <Canvas x:Name="RotationsNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
-                <Label x:Name="RotationsLabel" Content="Damage Rotations Settings" Canvas.Left="196" Canvas.Top="10" Foreground="{DynamicResource ForegroundColor}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="196" Canvas.Top="47" Width="249" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Label x:Name="LamentRotationBindLabel" Content="Lament Rotation Toggle" Canvas.Left="331" Canvas.Top="103" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button x:Name="LamentRotationBind" Height="30" Width="86" Content="Bind" Canvas.Left="356" Canvas.Top="134" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" Click="LamentRotationBind_Click"/>
-                <Label x:Name="BiliRotationBindLabel" Content="Bili Bili Rotation Toggle" Canvas.Left="176" Canvas.Top="103" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button x:Name="BiliRotationBind" IsEnabled="False" Height="30" Width="86" Content="Bind" Canvas.Left="199" Canvas.Top="134" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}"/>
-                <Label x:Name="RotationRepeatInfiniteLabel" Content="Repeat Rotation Infinitely" Canvas.Left="10" Canvas.Top="273" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Label x:Name="RotationRepeatOnceLabel" Content="Repeat Rotation Once" Canvas.Left="153" Canvas.Top="273" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button x:Name="RotationRepeatOnce" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" Style="{StaticResource NavbarStyleOne}" Canvas.Left="201" Canvas.Top="304" HorizontalAlignment="Center" VerticalAlignment="Center" Click="RotationRepeatOnce_Click"/>
-                <Button x:Name="RotationRepeatInfinite" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" Style="{StaticResource NavbarStyleOne}" Canvas.Left="67" Canvas.Top="304" HorizontalAlignment="Center" VerticalAlignment="Center" Click="RotationRepeatInfinite_Click"/>
-                <Label x:Name="RotationRepeatSelectLabel" Content="Repeat Rotation        Times" Canvas.Left="484" Canvas.Top="273" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Label x:Name="RotationRepeatHeldLabel" Content="Repeat Rotation While Bind Is Held" Canvas.Left="284" Canvas.Top="273" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Button x:Name="RotationRepeatSelect" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" Style="{StaticResource NavbarStyleOne}" Canvas.Left="546" Canvas.Top="304" HorizontalAlignment="Center" VerticalAlignment="Center" Click="RotationRepeatSelect_Click"/>
-                <Button x:Name="RotationRepeatHeld" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" Style="{StaticResource NavbarStyleOne}" Canvas.Left="371" Canvas.Top="304" HorizontalAlignment="Center" VerticalAlignment="Center" Click="RotationRepeatHeld_Click"/>
-                <TextBox x:Name="RotationRepeatSelectBox" Height="19" Width="19" Text="1" Canvas.Left="579" Canvas.Top="276" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="RotationRepeatSelectBox_TextChanged"/>
-            </Canvas>
-            <Canvas x:Name="MovementNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
-                <Label x:Name="MovementLabel" Content="Movement Settings" Canvas.Left="230" Canvas.Top="10" Foreground="{DynamicResource ForegroundColor}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="230" Canvas.Top="47" Width="182" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Label x:Name="GroundSkateBindLabel" Content="Groundskate" Canvas.Left="63" Canvas.Top="103" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Button x:Name="GroundSkateBind" Height="30" Width="86" Content="Bind" Canvas.Left="59" Canvas.Top="134" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" Click="GroundSkateBind_Click"/>
-                <Label x:Name="EdgeSkateBindLabel" Content="Edgeskate" Canvas.Left="215" Canvas.Top="103" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Button x:Name="EdgeSkateBind" Height="30" Width="86" Content="Bind" Canvas.Left="204" Canvas.Top="134" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" Click="EdgeSkateBind_Click"/>
-                <Label x:Name="SnapSkateBindLabel" Content="Snapskate" Canvas.Left="360" Canvas.Top="103" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Button x:Name="SnapSkateBind" Height="30" Width="86" Content="Bind" Canvas.Left="349" Canvas.Top="134" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" Click="SnapSkateBind_Click"/>
-                <Label x:Name="StrandSkateBindLabel" Content="Strandskate" Canvas.Left="501" Canvas.Top="103" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Button x:Name="StrandSkateBind" Height="30" Width="86" Content="Bind" Canvas.Left="494" Canvas.Top="134" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" Click="StrandSkateBind_Click"/>
-                <Rectangle Fill="{DynamicResource ForegroundColor}" Height="187" Canvas.Left="319" Canvas.Top="206" Width="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBox x:Name="MovementDelayOne" Height="24" Width="54" Text="25" Canvas.Left="220" Canvas.Top="225" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontSize="15" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="MovementDelayOne_TextChanged"/>
-                <Label x:Name="MovementDelayOneLabel" Content="Delay One [MS]" Canvas.Left="56" Canvas.Top="224" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBox x:Name="MovementDelayTwo" Height="24" Width="54" Text="35" Canvas.Left="220" Canvas.Top="270" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" FontSize="15" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="MovementDelayTwo_TextChanged"/>
-                <Label x:Name="MovementDelayTwoLabel" Content="Delay Two [MS]" Canvas.Left="56" Canvas.Top="269" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBox x:Name="MovementDelayThree" Height="24" Width="54" Text="0" Canvas.Left="220" Canvas.Top="317" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" FontSize="15" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="MovementDelayThree_TextChanged"/>
-                <Label x:Name="MovementDelayThreeLabel" Content="Delay Three [MS]" Canvas.Left="56" Canvas.Top="316" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBox x:Name="MovementSwapBackDelay" Height="24" Width="54" Text="400" Canvas.Left="220" Canvas.Top="369" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" FontSize="15" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="MovementSwapBackDelay_TextChanged"/>
-                <Label x:Name="MovementSwapBackDelayLabel" Content="Swap Back Delay [MS]" Canvas.Left="56" Canvas.Top="367" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Label x:Name="PrimarySwapLabel" Content="Primary Weapon Swapback" Canvas.Left="349" Canvas.Top="221" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Button x:Name="PrimarySwap" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" Canvas.Left="522" Canvas.Top="219" HorizontalAlignment="Left" VerticalAlignment="Top" Click="PrimarySwap_Click"/>
-                <Label x:Name="SpecialSwapLabel" Content="Special Weapon Swapback" Canvas.Left="347" Canvas.Top="269" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <Button x:Name="SpecialSwap" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" Style="{StaticResource NavbarStyleOne}" Canvas.Left="522" Canvas.Top="267" HorizontalAlignment="Center" VerticalAlignment="Top" Click="SpecialSwap_Click"/>
-                <Label x:Name="HeavySwapLabel" Content="Heavy Weapon Swapback" Canvas.Left="349" Canvas.Top="318" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <Button x:Name="HeavySwap" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" Style="{StaticResource NavbarStyleOne}" Canvas.Left="522" Canvas.Top="314" HorizontalAlignment="Center" VerticalAlignment="Top" Click="HeavySwap_Click"/>
-                <Label x:Name="ShatterModeLabel" Content="Swap To Shatterdive Mode" Canvas.Left="351" Canvas.Top="367" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Button x:Name="ShatterMode" Height="30" Width="30" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" Style="{StaticResource NavbarStyleOne}" Canvas.Left="522" Canvas.Top="365" HorizontalAlignment="Center" VerticalAlignment="Top" Click="ShatterMode_Click"/>
-            </Canvas>
-            <Canvas x:Name="SwapperNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
-                <Label x:Name="SwapperLabel" Content="Loadout Swapper Settings" Canvas.Left="201" Canvas.Top="11" Foreground="{DynamicResource ForegroundColor}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="201" Canvas.Top="48" Width="241" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Label x:Name="LoaudoutOneLabel" Content="Loadout One" Canvas.Left="39" Canvas.Top="98" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Label x:Name="LoaudoutTwoLabel" Content="Loadout Two" Canvas.Left="163" Canvas.Top="98" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Label x:Name="LoaudoutThreeLabel" Content="Loadout Three" Canvas.Left="278" Canvas.Top="98" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Label x:Name="LoaudoutFourLabel" Content="Loadout Four" Canvas.Left="404" Canvas.Top="98" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Label x:Name="LoaudoutFiveLabel" Content="Loadout Five" Canvas.Left="524" Canvas.Top="98" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Button x:Name="LoadoutOneBind" Height="30" Width="100" Content="Bind" Canvas.Left="29" Canvas.Top="129" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" Click="LoadoutOneBind_Click" FontSize="10"/>
-                <Button x:Name="LoadoutTwoBind" Height="30" Width="100" Content="Bind" Canvas.Left="152" Canvas.Top="129" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" Click="LoadoutTwoBind_Click" FontSize="10"/>
-                <Button x:Name="LoadoutThreeBind" Height="30" Width="100" Content="Bind" Canvas.Left="272" Canvas.Top="129" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" FontSize="10" Click="LoadoutThreeBind_Click"/>
-                <Button x:Name="LoadoutFourBind" Height="30" Width="100" Content="Bind" Canvas.Left="395" Canvas.Top="129" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" FontSize="10" Click="LoadoutFourBind_Click"/>
-                <Button x:Name="LoadoutFiveBind" Height="30" Width="100" Content="Bind" Canvas.Left="513" Canvas.Top="129" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" FontSize="10" Click="LoadoutFiveBind_Click"/>
-                <Label x:Name="LoadoutSixLabel" Content="Louadout Six" Canvas.Left="40" Canvas.Top="206" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Label x:Name="LoadoutSevenLabel" Content="Loadout Seven" Canvas.Left="163" Canvas.Top="206" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Label x:Name="LoadoutEightLabel" Content="Loadout Eight" Canvas.Left="278" Canvas.Top="206" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Label x:Name="LoadoutNineLabel" Content="Loadout Nine" Canvas.Left="404" Canvas.Top="206" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Label x:Name="LoadoutTenLabel" Content="Loadout Ten" Canvas.Left="524" Canvas.Top="206" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button x:Name="LoadoutSixBind" Height="30" Width="100" Content="Bind" Canvas.Left="29" Canvas.Top="237" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" FontSize="10" Click="LoadoutSixBind_Click"/>
-                <Button x:Name="LoadoutSevenBind" Height="30" Width="100" Content="Bind" Canvas.Left="152" Canvas.Top="237" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" FontSize="10" Click="LoadoutSevenBind_Click"/>
-                <Button x:Name="LoadoutEightBind" Height="30" Width="100" Content="Bind" Canvas.Left="272" Canvas.Top="237" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" FontSize="10" Click="LoadoutEightBind_Click"/>
-                <Button x:Name="LoadoutNineBind" Height="30" Width="100" Content="Bind" Canvas.Left="395" Canvas.Top="237" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" FontSize="10" Click="LoadoutNineBind_Click"/>
-                <Button x:Name="LoadoutTenBind" Height="30" Width="100" Content="Bind" Canvas.Left="513" Canvas.Top="237" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" FontSize="10" Click="LoadoutTenBind_Click"/>
-                <Label x:Name="LoadoutSwapperDelay"  Content="Loadout Swap Delay" Canvas.Left="261" Canvas.Top="311" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBox x:Name="LoadoutSwapperDelayBox" Height="24" Width="54" Text="0" Canvas.Left="293" Canvas.Top="342" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontSize="15" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" TextChanged="LoadoutSwapperDelayBox_TextChanged"/>
-            </Canvas>
-            <Canvas x:Name="ReleaseNotesNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Visibility="Visible">
-                <Label x:Name="ReleaseNotesLabel" Content="Release Notes" Canvas.Left="254" Canvas.Top="10" Foreground="{DynamicResource ForegroundColor}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="254" Canvas.Top="47" Width="134" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Width="622" Canvas.Left="10" Canvas.Top="54" Height="348" TextAlignment="Center" Foreground="{DynamicResource ForegroundColor}" FontSize="13">
-                    - Complete Rewrite Of The Hub Into More Modular Form
-                     <LineBreak/>
-                    - Changed Navbars Into One So Its More Compact
-                    <LineBreak/>
-                    - Changed Lament Tab Into Damage Rotations Tab
-                    <LineBreak/>
-                    - Added Placeholder Button For The Coming Settings Tab
-                    <LineBreak/>
-                    - Added New Button To Navbar (Information)
-                    <LineBreak/>
-                    - Added New Script (Loadout Swapper)
-                    <LineBreak/>
-                    - Added UI For New Non Functional Script (Bili Bili Damage Rotation)
-                    <LineBreak/>
-                    - Fixed A Bug Where The Hub Wouldnt Load Script Menus
-                    <LineBreak/>
-                    <LineBreak/>
-                    Next Update
-                    <LineBreak/>
-                    <LineBreak/>
-                    - Adding Settings Tab
-                    <LineBreak/>
-                    - Adding Functional Bili Bili Damage Rotation
-                    <LineBreak/>
-                    - Adding Prism To Core Conversion Script
-                    <LineBreak/>
-                    - Adding Complete Script Information To https://prime-software.xyz
-                    <LineBreak/>
-                    - Adding The Ability To Change The Color Of The Hub
-                    <LineBreak/>
-                    <LineBreak/>
-                    Contact Me On Discord If You Have Any Suggestions Or Bugs
-                    <LineBreak/>
-                    <LineBreak/>
-                    Discord: _leopoldprime
-                </TextBlock>
-            </Canvas>
-            <Canvas x:Name="CreditsNavbarCanvas" Height="412" Width="642" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Visibility="Hidden">
-                <Label x:Name="CreditsLabel" Content="Credits" Canvas.Left="285" Canvas.Top="10" Foreground="{DynamicResource ForegroundColor}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="285" Canvas.Top="47" Width="72" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Width="622" Canvas.Left="10" Canvas.Top="54" Height="348" Foreground="{DynamicResource ForegroundColor}" FontSize="13" TextAlignment="Center">
-                    All Credits Given Will Be In Their Discord Tag
-                    <LineBreak/>
-                    <LineBreak/>
-                    <LineBreak/>
-                    Lead Developer: _leopoldprime
-                    <LineBreak/>
-                    <LineBreak/>
-                    Concept Art For UI: stellariko
-                    <LineBreak/>
-                    <LineBreak/>
-                    Website Were I Got The LAME Theme: antrament
-                    <LineBreak/>
-                    <LineBreak/>
-                    Lament Damage Rotation Timings And Inputs: lonewolf1802
-                    <LineBreak/>
-                    <LineBreak/>
-                    Modularity Rewrite Encouragement: waifushork
-                    <LineBreak/>
-                    <LineBreak/>
-                    Binding System: waifushork
-                    <LineBreak/>
-                    <LineBreak/>
-                    Code Proofreading: waifushork
-                    <LineBreak/>
-                    <LineBreak/>
-                    <LineBreak/>
-                    If You Think Im Missing Credits For Something Please Contact Me On Discord
-                    <LineBreak/>
-                    Discord: _leopoldprime
-                </TextBlock>
-            </Canvas>
-            <Canvas x:Name="SettingsNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="642" Visibility="Hidden" Canvas.Left="158" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ScrollViewer Height="412" Width="642" Background="{DynamicResource BackgroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Canvas Height="568">
-                        <Image x:Name="UserPFP" Source="images/logo.png" Height="65" Width="96" Canvas.Left="273" Canvas.Top="23"/>
-                        <Label x:Name="Username" Content="Username Unavaliable - Discord Closed" HorizontalAlignment="Center" VerticalAlignment="Top" Width="622" Height="Auto" FontFamily="Segoe UI Light" FontSize="16" Foreground="#eb7623" Canvas.Left="10" Canvas.Top="124" HorizontalContentAlignment="Center"/>
-                        <Label x:Name="DisplayName" Content="Display Name Unavaliable - Discord Closed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="622" Height="Auto" FontFamily="Segoe UI Light" FontSize="16" Foreground="#eb7623" Canvas.Left="10" Canvas.Top="93" HorizontalContentAlignment="Center"/>
-                        <Label x:Name="UserID" Content="Discord ID Unavaliable - Discord Closed" HorizontalAlignment="Center" VerticalAlignment="Top" Width="622" Height="Auto" FontFamily="Segoe UI Light" FontSize="16" Foreground="#eb7623" Canvas.Left="10" Canvas.Top="155" HorizontalContentAlignment="Center"/>
-                        <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="187" Canvas.Top="193" Width="265" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <TextBox x:Name="ForegroundInputBox" Text="#eb7623" IsEnabled="False" Height="30" Width="70" Canvas.Left="217" Canvas.Top="236" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="16"/>
-                        <Label x:Name="ForegroundLabel" Content="Foreground Color" HorizontalAlignment="Left" VerticalAlignment="Center" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="16" Foreground="#eb7623" Canvas.Left="187" Canvas.Top="200"/>
-                        <Label x:Name="BackgroundLabel" Content="Background Color" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" FontSize="16" Foreground="#eb7623" Canvas.Left="321" Canvas.Top="200"/>
-                        <TextBox x:Name="BackgroundInputBox" IsEnabled="False" Text="#23343d" Height="30" Width="70" Canvas.Left="351" Canvas.Top="236" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="16"/>
-                        <Button x:Name="SaveThemeButton" IsEnabled="False" Content="Apply Theme" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="254" Canvas.Top="287" Width="134" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SaveThemeButton_Click"/>
-                        <Label x:Name="PlaceholderLabel" Content="(This Is A Placeholder For The Theme Changer And Is Non-Functional)" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" Height="Auto" FontFamily="Segoe UI Light" Foreground="#eb7623" Canvas.Left="139" Canvas.Top="317"/>
-                        <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="180" Canvas.Top="362" Width="265" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <Button x:Name="SuperBind" Height="30" Width="100" Content="Bind" Canvas.Left="345" Canvas.Top="389" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" FontSize="10" Click="SuperBind_Click"/>
-                        <Label x:Name="SuperBindLabel"  Content="Super Key" Canvas.Left="180" Canvas.Top="390" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
-                        <Button x:Name="PrimaryWeaponBind" Height="30" Width="100" Content="Bind" Canvas.Left="345" Canvas.Top="424" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" FontSize="10" Click="PrimaryWeaponBind_Click"/>
-                        <Label x:Name="PrimaryWeaponBindLabel"  Content="Primary Weapon Key" Canvas.Left="180" Canvas.Top="426" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
-                        <Button x:Name="SpecialWeaponBind" Height="30" Width="100" Content="Bind" Canvas.Left="345" Canvas.Top="459" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" FontSize="10" Click="SpecialWeaponBind_Click"/>
-                        <Label x:Name="SpecialWeaponBindLabel"  Content="Special Weapon Key" Canvas.Left="180" Canvas.Top="461" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
-                        <Button x:Name="HeavyWeaponBind" Height="30" Width="100" Content="Bind" Canvas.Left="345" Canvas.Top="494" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" FontSize="10" Click="HeavyWeaponBind_Click"/>
-                        <Label x:Name="HeavyWeaponBindLabel"  Content="Heavy Weapon Key" Canvas.Left="180" Canvas.Top="496" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <Button x:Name="AirMoveBind" Height="30" Width="100" Content="Bind" Canvas.Left="345" Canvas.Top="529" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" Style="{StaticResource NavbarStyleOne}" FontSize="10" Click="AirMoveBind_Click"/>
-                        <Label x:Name="AirMoveBindLabel"  Content="Air Move Key" Canvas.Left="180" Canvas.Top="531" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                    </Canvas>
-                </ScrollViewer>
-            </Canvas>
-        </Canvas>
-    </Grid>
+        </Grid>
+    </Border>
 </Window>

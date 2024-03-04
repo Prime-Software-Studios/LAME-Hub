@@ -15,6 +15,7 @@ namespace HubHelper
 {
     public class UIHandler
     {
+
         public void NavbarButtonClicked(object sender, Canvas navbar, Canvas canvasParent)
         {
             // Get the clicked button
@@ -31,8 +32,7 @@ namespace HubHelper
                 if (button == clickedButton)
                 {
                     // Change the background color of the clicked button
-                    button.Background = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#eb7623"));
-                    button.Foreground = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#23343d"));
+                    button.Foreground = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#539db5"));
 
                     // Find the corresponding canvas and set it to visible
                     Canvas correspondingCanvas = canvases.FirstOrDefault(c => c.Name == button.Name + "Canvas");
@@ -44,8 +44,7 @@ namespace HubHelper
                 else
                 {
                     // Change the background color of the other buttons
-                    button.Background = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#23343d"));
-                    button.Foreground = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#eb7623"));
+                    button.Foreground = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#3e3d3f"));
 
                     // Find the corresponding canvas and set it to hidden
                     Canvas correspondingCanvas = canvases.FirstOrDefault(c => c.Name == button.Name + "Canvas");

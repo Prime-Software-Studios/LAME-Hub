@@ -68,7 +68,7 @@ namespace LAME_Hub
 
         private void NavbarButtonClicked(object sender, RoutedEventArgs e)
         {
-            UIHandler.NavbarButtonClicked(sender, navbar, canvasParent);
+            UIHandler.NavbarButtonClicked(sender, Navbar, canvasParent);
         }
 
         private void DestinyCanvasLaunchButton_Click(object sender, RoutedEventArgs e)
@@ -76,6 +76,7 @@ namespace LAME_Hub
             DestinyWindow destinyWindow = new DestinyWindow();
             destinyWindow.Show();
             this.Close();
+
         }
 
         public string GetAvatarURL(User.AvatarFormat format, User.AvatarSize size)
@@ -86,7 +87,7 @@ namespace LAME_Hub
         }
         private void Window_Initialized(object sender, EventArgs e)
             {
-            client = new DiscordRpcClient("");
+            client = new DiscordRpcClient("1195005916584620212");
 
             client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
 
@@ -108,10 +109,11 @@ namespace LAME_Hub
                 {
                     string avatarURL = GetAvatarURL(User.AvatarFormat.PNG, User.AvatarSize.x128);
 
-                    UserPFP.Source = new BitmapImage(new Uri(avatarURL));
-                    Username.Content = "Username : " + e.User.Username + "#0001";
-                    DisplayName.Content = "Display Name : " + e.User.DisplayName;
-                    UserID.Content = "Discord ID : " + e.User.ID;
+                    UserPFP2.Source = new BitmapImage(new Uri(avatarURL));
+                    Username.Content = e.User.Username + "#0001";
+                    DisplayName.Content = e.User.DisplayName;
+                    DisplayName2.Content = e.User.DisplayName;
+                    UserID.Content = e.User.ID;
                 });
             };
 
@@ -157,8 +159,49 @@ namespace LAME_Hub
             await Task.Delay(6000);
             LoadingImage.Visibility = Visibility.Hidden;
             TitleBar.Visibility = Visibility.Visible;
-            navbar.Visibility = Visibility.Visible;
+            Navbar.Visibility = Visibility.Visible;
             canvasParent.Visibility = Visibility.Visible;
+        }
+
+        private void ForegroundInputBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = sender as System.Windows.Controls.TextBox;
+            if (textBox != null)
+            {
+                try
+                {
+                    var color = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(textBox.Text);
+                    this.Resources["ForegroundColor"] = new SolidColorBrush(color);
+                }
+                catch (FormatException)
+                {
+                    // Handle the exception if the color string is not valid
+                }
+            }
+        }
+
+        private void BackgroundInputBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = sender as System.Windows.Controls.TextBox;
+            if (textBox != null)
+            {
+                try
+                {
+                    var color = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(textBox.Text);
+                    this.Resources["BackgroundColor"] = new SolidColorBrush(color);
+                }
+                catch (FormatException)
+                {
+                    // Handle the exception if the color string is not valid
+                }
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            WarframeWindow warframeWindow = new WarframeWindow();
+            warframeWindow.Show();
+            this.Close();
         }
     }
 }
