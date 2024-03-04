@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "OqzSgorrnu2rA1N0QwiZS5mWqy2x3KIOQ2q2VqofQXp1gM8UyGF2QRzXKFLQEPjhMOUEEmRW2TpRAr/lBfQOlg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\J1233\\Source\\Repos\\Hotkeys2\\Hotkeys.Example\\Hotkeys.Example.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\J1233\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.0\\microsoft.extensions.dependencyinjection.6.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
