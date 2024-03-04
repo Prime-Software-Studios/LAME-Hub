@@ -22,6 +22,20 @@ namespace LAME_Hub
     /// <summary>
     /// Interaction logic for WarframeWindow.xaml
     /// </summary>
+    /// 
+
+    public enum NotificationPlatform
+    {
+        iOS,
+        Android
+    }
+
+    public enum NotificationsEnabled
+    {
+        True,
+        False
+    }
+
     public partial class WarframeWindow : Window
     {
         HotkeyHandler HotkeyHandler = new HotkeyHandler();
@@ -29,6 +43,10 @@ namespace LAME_Hub
         UIHandler UIHandler = new UIHandler();
 
         public DiscordRpcClient client;
+
+        private NotificationPlatform platform;
+
+        private NotificationsEnabled state;
 
         public WarframeWindow()
         {
@@ -125,6 +143,29 @@ namespace LAME_Hub
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             client.Dispose();
+        }
+
+
+        private void Notifications()
+        {
+            while(state == NotificationsEnabled.True)
+            {
+
+            }
+        }
+
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (state == NotificationsEnabled.True)
+            {
+                state = NotificationsEnabled.False;
+            }
+            else if (state == NotificationsEnabled.False)
+            {
+                state = NotificationsEnabled.True;
+            }
+
+            Notifications();
         }
     }
 }
