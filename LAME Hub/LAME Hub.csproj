@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <RootNamespace>LAME_Hub</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>images\logo.ico</ApplicationIcon>
+    <UseWindowsForms>True</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="images\ark_icon.png" />
+    <None Remove="images\close_icon.png" />
+    <None Remove="images\destiny_icon.png" />
+    <None Remove="images\discord_icon.png" />
+    <None Remove="images\info.png" />
+    <None Remove="images\kofi_icon.png" />
+    <None Remove="images\logo.ico" />
+    <None Remove="images\logo.png" />
+    <None Remove="images\minimize_icon.png" />
+    <None Remove="images\rust_icon.jpg" />
+    <None Remove="images\warframe_icon.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="images\logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DiscordRichPresence" Version="1.2.1.24" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Hotkeys2\Hotkeys\Hotkeys.csproj" />
+    <ProjectReference Include="..\HubHelper\HubHelper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\ark_icon.png" />
+    <Resource Include="images\close_icon.png" />
+    <Resource Include="images\destiny_icon.png" />
+    <Resource Include="images\discord_icon.png" />
+    <Resource Include="images\info.png" />
+    <Resource Include="images\kofi_icon.png" />
+    <Resource Include="images\logo.ico" />
+    <Resource Include="images\logo.png" />
+    <Resource Include="images\minimize_icon.png" />
+    <Resource Include="images\rust_icon.jpg" />
+    <Resource Include="images\warframe_icon.jpg" />
+  </ItemGroup>
+
+</Project>
