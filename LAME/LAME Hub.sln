@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LAME Hub", "LAME Hub\LAME Hub.csproj", "{F6527C80-0861-4CAD-A692-CEED0BD7F7F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HubHelper", "HubHelper\HubHelper.csproj", "{DE73F132-1707-4B9B-953C-24894D4A5518}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotkeys", "..\Hotkeys2\Hotkeys\Hotkeys.csproj", "{72BD55A1-9AD1-43A1-AF4E-C20FB0DA5477}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6527C80-0861-4CAD-A692-CEED0BD7F7F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6527C80-0861-4CAD-A692-CEED0BD7F7F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6527C80-0861-4CAD-A692-CEED0BD7F7F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6527C80-0861-4CAD-A692-CEED0BD7F7F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE73F132-1707-4B9B-953C-24894D4A5518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE73F132-1707-4B9B-953C-24894D4A5518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE73F132-1707-4B9B-953C-24894D4A5518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE73F132-1707-4B9B-953C-24894D4A5518}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72BD55A1-9AD1-43A1-AF4E-C20FB0DA5477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72BD55A1-9AD1-43A1-AF4E-C20FB0DA5477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72BD55A1-9AD1-43A1-AF4E-C20FB0DA5477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72BD55A1-9AD1-43A1-AF4E-C20FB0DA5477}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D7AC07D-48D8-4C4E-9A56-87FDD5FBA438}
+	EndGlobalSection
+EndGlobal

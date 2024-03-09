@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "z3wyjjsq7AQw6z4zpcU6cK7ZZl/Zj/M6be6VkKpZPB2OxRKpmmfqNs7ehT/lrARoizrg3sFpxUBqoT2wU7txTA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\J1233\\source\\repos\\LAME Hub\\HubHelper\\HubHelper.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\J1233\\.nuget\\packages\\discord.net.core\\3.13.0\\discord.net.core.3.13.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\discord.net.rest\\3.13.0\\discord.net.rest.3.13.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\discord.net.websocket\\3.13.0\\discord.net.websocket.3.13.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\nefarius.vigem.client\\1.21.256\\nefarius.vigem.client.1.21.256.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\system.interactive.async\\5.0.0\\system.interactive.async.5.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\system.linq.async\\5.0.0\\system.linq.async.5.0.0.nupkg.sha512",
+    "C:\\Users\\J1233\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
