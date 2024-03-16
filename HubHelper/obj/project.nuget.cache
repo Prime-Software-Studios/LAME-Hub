@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "z3wyjjsq7AQw6z4zpcU6cK7ZZl/Zj/M6be6VkKpZPB2OxRKpmmfqNs7ehT/lrARoizrg3sFpxUBqoT2wU7txTA==",
+  "dgSpecHash": "Fk5mSN9bi8ArveYv9/Ud4dCoqymxqNeOFINqIBiqJa1hWEBs6oX9ehNXojfu+2r6bDGCTg93PRo38gkkGT4EAQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\J1233\\source\\repos\\LAME Hub\\HubHelper\\HubHelper.csproj",
+  "projectFilePath": "C:\\Users\\J1233\\source\\repos\\LAME\\HubHelper\\HubHelper.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\J1233\\.nuget\\packages\\discord.net.core\\3.13.0\\discord.net.core.3.13.0.nupkg.sha512",
     "C:\\Users\\J1233\\.nuget\\packages\\discord.net.rest\\3.13.0\\discord.net.rest.3.13.0.nupkg.sha512",

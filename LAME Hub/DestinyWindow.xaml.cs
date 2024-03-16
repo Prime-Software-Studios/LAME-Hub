@@ -43,7 +43,7 @@ namespace LAME_Hub
         public class scriptSections
         {
             public string? Name { get; set; }
-            public List<Hotkey> Hotkeys { get; set; }
+            public List<Hotkeys> Hotkeys { get; set; }
         }
 
         public class Hotkeys
@@ -65,17 +65,6 @@ namespace LAME_Hub
             string parentDirectory = Directory.GetParent(currentDirectory).FullName;
 
             string configPath = Path.Combine(parentDirectory, "configs", "destiny.json");
-
-            if (!File.Exists(configPath))
-            {
-                File.Create(configPath);
-            }
-            else
-            {
-                var contents = File.ReadAllText(configPath);
-
-                var config = JsonConvert.DeserializeObject<configRoot>(contents);
-            }
 
             SeasonalXPDelay.PreviewTextInput += new TextCompositionEventHandler(UIHandler.OnlyAllowNumbers);
             FishingDelay.PreviewTextInput += new TextCompositionEventHandler(UIHandler.OnlyAllowNumbers);
@@ -180,7 +169,7 @@ namespace LAME_Hub
         }
         private void Window_Initialized(object sender, EventArgs e)
         {
-            client = new DiscordRpcClient("");
+            client = new DiscordRpcClient("1195005916584620212");
 
             client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
 

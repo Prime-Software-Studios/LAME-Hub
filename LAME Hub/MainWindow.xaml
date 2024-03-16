@@ -11,11 +11,18 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen" Initialized="Window_Initialized" Closing="Window_Closing"
         Background="Transparent"
-        >
+        
+    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
     <Window.Resources>
         <SolidColorBrush x:Key="BackgroundColor" Color="#0b0a0c" />
-        <SolidColorBrush x:Key="ForegroundColor" Color="#539db5" />
-        <SolidColorBrush x:Key="IanactiveForground" Color="#3e3d3f"/>
+        <SolidColorBrush x:Key="AccentColor" Color="#539db5" />
+        <SolidColorBrush x:Key="LabelTextColor" Color="#539db5" />
+        <SolidColorBrush x:Key="SeparatorColor" Color="#3e3d3f"/>
+        <SolidColorBrush x:Key="ScrollBarColor" Color="#539db5" />
+        <SolidColorBrush x:Key="ButtonTextColor" Color="#539db5" />
+        <SolidColorBrush x:Key="ButtonBorderColor" Color="#539db5" />
+        <SolidColorBrush x:Key="ButtonBackgroundColor" Color="#0b0a0c" />
+        <SolidColorBrush x:Key="InactiveForegroundColor" Color="#3e3d3f"/>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -27,8 +34,8 @@
         </Style>
         <Style x:Key="NavbarStyleOne" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource ForegroundColor}"/>
+            <Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderColor}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -45,17 +52,17 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonBackgroundColor}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{DynamicResource ButtonTextColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonTextColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonTextColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonBackgroundColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonTextColor}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource LabelTextColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -81,7 +88,7 @@
                                     <Thumb>
                                         <Thumb.Template>
                                             <ControlTemplate>
-                                                <Rectangle Fill="{DynamicResource ForegroundColor}" Width="2">
+                                                <Rectangle Fill="{DynamicResource ScrollBarColor}" Width="2">
                                                     <Rectangle.RadiusX>5</Rectangle.RadiusX>
                                                     <Rectangle.RadiusY>5</Rectangle.RadiusY>
                                                 </Rectangle>
@@ -111,9 +118,9 @@
 
         <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual1}"/>
-            <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource ForegroundColor}"/>
-            <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}"/>
+            <Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ButtonTextColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -129,34 +136,314 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonTextColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonBackgroundColor}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{DynamicResource ButtonBackgroundColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonBackgroundColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonTextColor}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{DynamicResource LabelTextColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{DynamicResource ForegroundColor}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackgroundColor}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource BackgroundColor}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonTextColor}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonBackgroundColor}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource ButtonBackgroundColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="FocusVisual2">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="TextBox.Static.Background" Color="#FFFFFFFF"/>
+        <Style x:Key="ComboBoxEditableTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="MinWidth" Value="0"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <ScrollViewer x:Name="PART_ContentHost" Background="Transparent" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <LinearGradientBrush x:Key="ComboBox.Static.Background" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#FFF0F0F0" Offset="0.0"/>
+            <GradientStop Color="#FFE5E5E5" Offset="1.0"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="ComboBox.Static.Border" Color="#FFACACAC"/>
+        <SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="#FF606060"/>
+        <SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color="#FFFFFFFF"/>
+        <SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color="#FFABADB3"/>
+        <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Background" Color="Transparent"/>
+        <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Border" Color="Transparent"/>
+        <LinearGradientBrush x:Key="ComboBox.MouseOver.Background" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#FFECF4FC" Offset="0.0"/>
+            <GradientStop Color="#FFDCECFC" Offset="1.0"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="#FF000000"/>
+        <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Background" Color="#FFFFFFFF"/>
+        <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Border" Color="#FF7EB4EA"/>
+        <LinearGradientBrush x:Key="ComboBox.MouseOver.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#FFEBF4FC" Offset="0.0"/>
+            <GradientStop Color="#FFDCECFC" Offset="1.0"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Button.Border" Color="#FF7EB4EA"/>
+        <LinearGradientBrush x:Key="ComboBox.Pressed.Background" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#FFDAECFC" Offset="0.0"/>
+            <GradientStop Color="#FFC4E0FC" Offset="1.0"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="#FF569DE5"/>
+        <SolidColorBrush x:Key="ComboBox.Pressed.Glyph" Color="#FF000000"/>
+        <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Background" Color="#FFFFFFFF"/>
+        <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Border" Color="#FF569DE5"/>
+        <LinearGradientBrush x:Key="ComboBox.Pressed.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#FFDAEBFC" Offset="0.0"/>
+            <GradientStop Color="#FFC4E0FC" Offset="1.0"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Button.Border" Color="#FF569DE5"/>
+        <SolidColorBrush x:Key="ComboBox.Disabled.Background" Color="#FFF0F0F0"/>
+        <SolidColorBrush x:Key="ComboBox.Disabled.Border" Color="#FFD9D9D9"/>
+        <SolidColorBrush x:Key="ComboBox.Disabled.Glyph" Color="#FFBFBFBF"/>
+        <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Background" Color="#FFFFFFFF"/>
+        <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Border" Color="#FFBFBFBF"/>
+        <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Background" Color="Transparent"/>
+        <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Border" Color="Transparent"/>
+        <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="IsTabStop" Value="false"/>
+            <Setter Property="Focusable" Value="false"/>
+            <Setter Property="ClickMode" Value="Press"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border x:Name="templateRoot" Background="{StaticResource ComboBox.Static.Background}" BorderBrush="{StaticResource ComboBox.Static.Border}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <Border x:Name="splitBorder" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" Margin="0" SnapsToDevicePixels="true" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
+                                <Path x:Name="arrow" Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z" Fill="{StaticResource ComboBox.Static.Glyph}" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
+                            </Border>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=Self}}" Value="false"/>
+                                    <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Mode=Self}}" Value="false"/>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Mode=Self}}" Value="true"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Static.Editable.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Static.Editable.Border}"/>
+                                <Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.Static.Editable.Button.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.Static.Editable.Button.Border}"/>
+                            </MultiDataTrigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Fill" TargetName="arrow" Value="{StaticResource ComboBox.MouseOver.Glyph}"/>
+                            </Trigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=Self}}" Value="true"/>
+                                    <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="false"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Border}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=Self}}" Value="true"/>
+                                    <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Editable.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Editable.Border}"/>
+                                <Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.MouseOver.Editable.Button.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.MouseOver.Editable.Button.Border}"/>
+                            </MultiDataTrigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Fill" TargetName="arrow" Value="{StaticResource ComboBox.Pressed.Glyph}"/>
+                            </Trigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Mode=Self}}" Value="true"/>
+                                    <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="false"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Border}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Mode=Self}}" Value="true"/>
+                                    <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Editable.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Editable.Border}"/>
+                                <Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.Pressed.Editable.Button.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.Pressed.Editable.Button.Border}"/>
+                            </MultiDataTrigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Fill" TargetName="arrow" Value="{StaticResource ComboBox.Disabled.Glyph}"/>
+                            </Trigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Mode=Self}}" Value="false"/>
+                                    <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="false"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Border}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Mode=Self}}" Value="false"/>
+                                    <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Editable.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Editable.Border}"/>
+                                <Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.Disabled.Editable.Button.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.Disabled.Editable.Button.Border}"/>
+                            </MultiDataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ControlTemplate x:Key="ComboBoxEditableTemplate" TargetType="{x:Type ComboBox}">
+            <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Width="0"/>
+                </Grid.ColumnDefinitions>
+                <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource Mode=TemplatedParent}}" Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
+                    <theme:SystemDropShadowChrome x:Name="shadow" Color="Transparent" MinWidth="{Binding ActualWidth, ElementName=templateRoot}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                        <Border x:Name="dropDownBorder" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" BorderThickness="1">
+                            <ScrollViewer x:Name="DropDownScrollViewer">
+                                <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
+                                    <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
+                                        <Rectangle x:Name="opaqueRect" Fill="{Binding Background, ElementName=dropDownBorder}" Height="{Binding ActualHeight, ElementName=dropDownBorder}" Width="{Binding ActualWidth, ElementName=dropDownBorder}"/>
+                                    </Canvas>
+                                    <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </Grid>
+                            </ScrollViewer>
+                        </Border>
+                    </theme:SystemDropShadowChrome>
+                </Popup>
+                <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}"/>
+                <Border x:Name="border" Background="{StaticResource TextBox.Static.Background}" Margin="{TemplateBinding BorderThickness}">
+                    <TextBox x:Name="PART_EditableTextBox" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="{TemplateBinding Padding}" Style="{StaticResource ComboBoxEditableTextBox}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                </Border>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocusWithin" Value="true">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+                <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
+                    <Setter Property="Margin" TargetName="shadow" Value="0,0,5,5"/>
+                    <Setter Property="Color" TargetName="shadow" Value="#71000000"/>
+                </Trigger>
+                <Trigger Property="HasItems" Value="false">
+                    <Setter Property="Height" TargetName="dropDownBorder" Value="95"/>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsGrouping" Value="true"/>
+                        <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                </MultiTrigger>
+                <Trigger Property="ScrollViewer.CanContentScroll" SourceName="DropDownScrollViewer" Value="false">
+                    <Setter Property="Canvas.Top" TargetName="opaqueRect" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}"/>
+                    <Setter Property="Canvas.Left" TargetName="opaqueRect" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ComboBoxTemplate" TargetType="{x:Type ComboBox}">
+            <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Width="0"/>
+                </Grid.ColumnDefinitions>
+                <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="1" Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
+                    <theme:SystemDropShadowChrome x:Name="shadow" Color="Transparent" MinWidth="{Binding ActualWidth, ElementName=templateRoot}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                        <Border x:Name="dropDownBorder" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" BorderThickness="1">
+                            <ScrollViewer x:Name="DropDownScrollViewer">
+                                <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
+                                    <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
+                                        <Rectangle x:Name="opaqueRect" Fill="{Binding Background, ElementName=dropDownBorder}" Height="{Binding ActualHeight, ElementName=dropDownBorder}" Width="{Binding ActualWidth, ElementName=dropDownBorder}"/>
+                                    </Canvas>
+                                    <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </Grid>
+                            </ScrollViewer>
+                        </Border>
+                    </theme:SystemDropShadowChrome>
+                </Popup>
+                <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}"/>
+                <ContentPresenter x:Name="contentPresenter" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" Content="{TemplateBinding SelectionBoxItem}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="false" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
+                    <Setter Property="Margin" TargetName="shadow" Value="0,0,5,5"/>
+                    <Setter Property="Color" TargetName="shadow" Value="#71000000"/>
+                </Trigger>
+                <Trigger Property="HasItems" Value="false">
+                    <Setter Property="Height" TargetName="dropDownBorder" Value="95"/>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsGrouping" Value="true"/>
+                        <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                </MultiTrigger>
+                <Trigger Property="ScrollViewer.CanContentScroll" SourceName="DropDownScrollViewer" Value="false">
+                    <Setter Property="Canvas.Top" TargetName="opaqueRect" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}"/>
+                    <Setter Property="Canvas.Left" TargetName="opaqueRect" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style x:Key="ComboBoxStyle1" TargetType="{x:Type ComboBox}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual2}"/>
+            <Setter Property="Background" Value="{StaticResource ComboBox.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ComboBox.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="Padding" Value="6,3,5,3"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}"/>
+            <Style.Triggers>
+                <Trigger Property="IsEditable" Value="true">
+                    <Setter Property="IsTabStop" Value="false"/>
+                    <Setter Property="Padding" Value="2"/>
+                    <Setter Property="Template" Value="{StaticResource ComboBoxEditableTemplate}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
-    <Border CornerRadius="20" BorderBrush="{DynamicResource ForegroundColor}" BorderThickness="1.5" Margin="10,0,10,0" Background="{DynamicResource BackgroundColor}">
+    <Border CornerRadius="20" BorderBrush="{DynamicResource AccentColor}" BorderThickness="1.5" Margin="10,0,10,0" Background="{DynamicResource BackgroundColor}">
         <Grid MouseLeftButtonDown="EnableWindowDragable" Margin="-2,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="314*"/>
                 <ColumnDefinition Width="15*"/>
                 <ColumnDefinition Width="469*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="LoadingImage" Source="images/logo.png" Visibility="Visible" Height="232" Width="276" Grid.ColumnSpan="3" Margin="260,108,261,107">
+            <Image x:Name="LoadingImage" Source="images/logo.png" Visibility="Hidden" Height="232" Width="276" Grid.ColumnSpan="3" Margin="260,108,261,107">
                 <Image.Triggers>
                     <EventTrigger RoutedEvent="Image.Loaded">
                         <BeginStoryboard>
@@ -172,21 +459,21 @@
                 </Image.Triggers>
             </Image>
             <Canvas x:Name="TitleBar" MouseLeftButtonDown="EnableWindowDragable" Background="{DynamicResource BackgroundColor}" Margin="10,3,10,409" Visibility="Visible" Grid.ColumnSpan="3">
-                <Label Content="LAME" Height="42" Foreground="{DynamicResource ForegroundColor}" FontSize="25" Width="73" FontFamily="Segoe UI Light" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="0" Canvas.Left="5"/>
-                <Button x:Name="CloseButton" Content="x" FontSize="25" Style="{StaticResource NavbarStyleOne}" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderThickness="0" Canvas.Left="750" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Click="CloseButton_Click" FontFamily="Segoe UI Light"/>
+                <Label Content="LAME" Height="42" Foreground="{DynamicResource LabelTextColor}" FontSize="25" Width="73" FontFamily="Segoe UI Light" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="0" Canvas.Left="5"/>
+                <Button x:Name="CloseButton" Content="x" FontSize="25" Style="{StaticResource NavbarStyleOne}" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource AccentColor}" BorderThickness="0" Canvas.Left="750" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Click="CloseButton_Click" FontFamily="Segoe UI Light"/>
             </Canvas>
             <Canvas x:Name="Navbar" Margin="0,38,146,10" Background="{DynamicResource BackgroundColor}" Visibility="Hidden" HorizontalAlignment="Right" Width="160">
-                <Button x:Name="GamesNavbar" FontFamily="Segoe UI Light" Content="Game Script Menus" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="10" Width="151" Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Click="NavbarButtonClicked"/>
-                <Button x:Name="MiscNavbar" FontFamily="Segoe UI Light" Content="Misc Script Menus" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="33" Width="151" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" Click="NavbarButtonClicked"/>
-                <Button x:Name="ReleaseNotesNavbar" FontFamily="Segoe UI Light" Content="Release Notes" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource ForegroundColor}" Canvas.Top="317" Width="102" Height="18" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NavbarButtonClicked" Canvas.Left="10"/>
-                <Button x:Name="CreditsNavbar" FontFamily="Segoe UI Light" Content="Credits" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="335" Width="102" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center" Click="NavbarButtonClicked"/>
-                <Button x:Name="SettingsNavbar" FontFamily="Segoe UI Light" Content="Settings" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource IanactiveForground}" Canvas.Left="10" Canvas.Top="353" Width="102" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Click="NavbarButtonClicked"/>
-                <Label x:Name="DisplayName2" Content="Discord Closed" HorizontalAlignment="Left" VerticalAlignment="Center" Width="156" Height="22" FontFamily="Segoe UI Light" Foreground="{DynamicResource ForegroundColor}" Canvas.Top="381" HorizontalContentAlignment="Right" FontSize="10" VerticalContentAlignment="Center"/>
+                <Button x:Name="GamesNavbar" FontFamily="Segoe UI Light" Content="Game Script Menus" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource InactiveForegroundColor}" Canvas.Left="10" Canvas.Top="10" Width="151" Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Click="NavbarButtonClicked"/>
+                <Button x:Name="MiscNavbar" FontFamily="Segoe UI Light" Content="Misc Script Menus" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource InactiveForegroundColor}" Canvas.Left="10" Canvas.Top="33" Width="151" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" Click="NavbarButtonClicked"/>
+                <Button x:Name="ReleaseNotesNavbar" FontFamily="Segoe UI Light" Content="Release Notes" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource AccentColor}" Canvas.Top="317" Width="102" Height="18" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NavbarButtonClicked" Canvas.Left="10"/>
+                <Button x:Name="CreditsNavbar" FontFamily="Segoe UI Light" Content="Credits" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource InactiveForegroundColor}" Canvas.Left="10" Canvas.Top="335" Width="102" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center" Click="NavbarButtonClicked"/>
+                <Button x:Name="SettingsNavbar" FontFamily="Segoe UI Light" Content="Settings" HorizontalContentAlignment="Left" Style="{StaticResource NavbarStyleOne}" Foreground="{DynamicResource InactiveForegroundColor}" Canvas.Left="10" Canvas.Top="353" Width="102" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Click="NavbarButtonClicked"/>
+                <Label x:Name="DisplayName2" Content="Discord Closed" HorizontalAlignment="Left" VerticalAlignment="Center" Width="156" Height="22" FontFamily="Segoe UI Light" Foreground="{DynamicResource LabelTextColor}" Canvas.Top="381" HorizontalContentAlignment="Right" FontSize="10" VerticalContentAlignment="Center"/>
                 <Image x:Name="UserPFP2" Source="images/logo.png" Height="22" Width="22" Canvas.Top="381" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="5"/>
-                <Rectangle Height="1" Width="151" Fill="{DynamicResource IanactiveForground}" Canvas.Top="375" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="5"/>
-                <Label Name="Version" FontFamily="Segoe UI Light" Content="v3.3.0.0" VerticalAlignment="Top" HorizontalAlignment="Center" Canvas.Left="117" Canvas.Top="353" Foreground="{DynamicResource ForegroundColor}" FontSize="9"/>
+                <Rectangle Height="1" Width="151" Fill="{DynamicResource SeparatorColor}" Canvas.Top="375" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="5"/>
+                <Label Name="Version" FontFamily="Segoe UI Light" Content="v3.3.0.0" VerticalAlignment="Top" HorizontalAlignment="Center" Canvas.Left="117" Canvas.Top="353" Foreground="{DynamicResource LabelTextColor}" FontSize="9"/>
             </Canvas>
-            <Canvas x:Name="canvasParent" Margin="158,38,10,10" Visibility="Hidden" Grid.ColumnSpan="3">
+            <Canvas x:Name="canvasParent" Margin="158,38,10,10" Visibility="Visible" Grid.ColumnSpan="3">
                 <Canvas x:Name="MiscNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="632" Visibility="Hidden" HorizontalAlignment="Center" Canvas.Left="10" VerticalAlignment="Center">
 
                 </Canvas>
@@ -197,41 +484,41 @@
                         </ScrollViewer.Resources>
                         <Canvas Height="426" Width="612">
                             <Canvas Name="DestinyBanner" Height="72" Width="612">
-                                <Border CornerRadius="10" BorderBrush="{DynamicResource ForegroundColor}" BorderThickness="0" Height="60" Width="582" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="10" Canvas.Left="10" Background="{DynamicResource BackgroundColor}">
+                                <Border CornerRadius="10" BorderBrush="{DynamicResource AccentColor}" BorderThickness="0" Height="60" Width="582" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="10" Canvas.Left="10" Background="{DynamicResource BackgroundColor}">
                                     <Canvas>
                                         <Canvas Height="50" Width="50" Background="White" Canvas.Left="10" Canvas.Top="7">
                                             <Image Source="images/destiny_icon.png" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="5" Canvas.Top="6"/>
                                         </Canvas>
-                                        <Label Content="Destiny 2" Height="44" Width="150" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="65" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="7"/>
+                                        <Label Content="Destiny 2" Height="44" Width="150" Foreground="{DynamicResource LabelTextColor}" Canvas.Left="65" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="7"/>
                                         <Button Style="{DynamicResource ButtonStyle1}" Content="Launch" Height="48" Canvas.Left="458" Width="114" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="6" Click="DestinyCanvasLaunchButton_Click"/>
                                     </Canvas>
                                 </Border>
                             </Canvas>
                             <Canvas Name="WarframeBanner" Height="72" Width="612" Canvas.Top="70">
-                                <Border CornerRadius="10" BorderBrush="{DynamicResource ForegroundColor}" BorderThickness="0" Height="60" Width="582" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="10" Canvas.Left="10" Background="{DynamicResource BackgroundColor}">
+                                <Border CornerRadius="10" BorderBrush="{DynamicResource AccentColor}" BorderThickness="0" Height="60" Width="582" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="10" Canvas.Left="10" Background="{DynamicResource BackgroundColor}">
                                     <Canvas>
                                         <Image Source="images/warframe_icon.jpg" Width="50" Height="50" Canvas.Left="10" Canvas.Top="4" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                                        <Label Content="Warframe" Height="44" Width="150" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="65" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="7"/>
+                                        <Label Content="Warframe" Height="44" Width="150" Foreground="{DynamicResource LabelTextColor}" Canvas.Left="65" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="7"/>
                                         <Button Style="{DynamicResource ButtonStyle1}" Content="Launch" Height="48" Canvas.Left="458" Width="114" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="6" Click="Button_Click_1"/>
                                     </Canvas>
                                 </Border>
                             </Canvas>
                             <Canvas Name="RustBanner" Height="72" Width="612" Canvas.Top="140">
-                                <Border CornerRadius="10" BorderBrush="{DynamicResource ForegroundColor}" BorderThickness="0" Height="60" Width="582" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="10" Canvas.Left="10" Background="{DynamicResource BackgroundColor}">
+                                <Border CornerRadius="10" BorderBrush="{DynamicResource AccentColor}" BorderThickness="0" Height="60" Width="582" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="10" Canvas.Left="10" Background="{DynamicResource BackgroundColor}">
                                     <Canvas>
                                         <Image Source="images/rust_icon.jpg" Width="50" Height="50" Canvas.Left="10" Canvas.Top="4" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                                        <Label Content="Rust" Height="44" Width="150" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="65" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="7"/>
+                                        <Label Content="Rust" Height="44" Width="150" Foreground="{DynamicResource LabelTextColor}" Canvas.Left="65" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="7"/>
                                         <Button Style="{DynamicResource ButtonStyle1}" Content="Coming Soon" IsEnabled="False" Height="48" Canvas.Left="458" Width="114" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="6" Click="Button_Click_1"/>
                                     </Canvas>
                                 </Border>
                             </Canvas>
                             <Canvas Name="ArkBanner" Height="72" Width="612" Canvas.Top="210">
-                                <Border CornerRadius="10" BorderBrush="{DynamicResource ForegroundColor}" BorderThickness="0" Height="60" Width="582" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="10" Canvas.Left="10" Background="{DynamicResource BackgroundColor}">
+                                <Border CornerRadius="10" BorderBrush="{DynamicResource AccentColor}" BorderThickness="0" Height="60" Width="582" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="10" Canvas.Left="10" Background="{DynamicResource BackgroundColor}">
                                     <Canvas>
                                         <Canvas Height="50" Width="50" Background="White" Canvas.Left="10" Canvas.Top="7">
                                             <Image Source="images/ark_icon.png" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                         </Canvas>
-                                        <Label Content="Ark Survival Evolved" Height="44" Width="305" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="65" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="7"/>
+                                        <Label Content="Ark Survival Evolved" Height="44" Width="305" Foreground="{DynamicResource LabelTextColor}" Canvas.Left="65" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="7"/>
                                         <Button Style="{DynamicResource ButtonStyle1}" Content="Coming Soon" IsEnabled="False" Height="48" Canvas.Left="458" Width="114" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="6" Click="DestinyCanvasLaunchButton_Click"/>
                                     </Canvas>
                                 </Border>
@@ -239,10 +526,10 @@
                         </Canvas>
                     </ScrollViewer>
                 </Canvas>
-                <Canvas x:Name="ReleaseNotesNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="632" Visibility="Visible" HorizontalAlignment="Center" Canvas.Left="10" VerticalAlignment="Center">
-                    <Label x:Name="ReleaseNotesLabel" Content="Release Notes" Canvas.Left="254" Canvas.Top="10" Foreground="{DynamicResource ForegroundColor}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="254" Canvas.Top="47" Width="134" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Width="622" Canvas.Left="10" Canvas.Top="54" Height="348" TextAlignment="Center" Foreground="{DynamicResource ForegroundColor}" FontSize="13">
+                <Canvas x:Name="ReleaseNotesNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="632" Visibility="Hidden" HorizontalAlignment="Center" Canvas.Left="10" VerticalAlignment="Center">
+                    <Label x:Name="ReleaseNotesLabel" Content="Release Notes" Canvas.Left="254" Canvas.Top="10" Foreground="{DynamicResource LabelTextColor}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Fill="{DynamicResource SeparatorColor}" Height="2" Canvas.Left="254" Canvas.Top="47" Width="134" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Width="622" Canvas.Left="10" Canvas.Top="54" Height="348" TextAlignment="Center" Foreground="{DynamicResource LabelTextColor}" FontSize="13">
                  - Complete Rewrite Of The Hub Into More Modular Form
                  <LineBreak/>
                  - Changed Navbars Into One So Its More Compact
@@ -272,9 +559,9 @@
                     </TextBlock>
                 </Canvas>
                 <Canvas x:Name="CreditsNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="642" Visibility="Hidden">
-                    <Label x:Name="CreditsLabel" Content="Credits" Canvas.Left="285" Canvas.Top="10" Foreground="{DynamicResource ForegroundColor}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Rectangle Fill="{DynamicResource ForegroundColor}" Height="2" Canvas.Left="285" Canvas.Top="47" Width="72" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Width="622" Canvas.Left="10" Canvas.Top="54" Height="348" Foreground="{DynamicResource ForegroundColor}" FontSize="13" TextAlignment="Center">
+                    <Label x:Name="CreditsLabel" Content="Credits" Canvas.Left="285" Canvas.Top="10" Foreground="{DynamicResource LabelTextColor}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Fill="{DynamicResource SeparatorColor}" Height="2" Canvas.Left="285" Canvas.Top="47" Width="72" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Width="622" Canvas.Left="10" Canvas.Top="54" Height="348" Foreground="{DynamicResource AccentColor}" FontSize="13" TextAlignment="Center">
                  All Credits Given Will Be In Their Discord Tag
                  <LineBreak/>
                  <LineBreak/>
@@ -306,21 +593,23 @@
                  Discord: _leopoldprime
                     </TextBlock>
                 </Canvas>
-                <Canvas x:Name="SettingsNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="632" Visibility="Hidden" HorizontalAlignment="Left" Canvas.Left="10" VerticalAlignment="Center">
-                    <Label Content="User Information" FontSize="13" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Left" Canvas.Left="10" VerticalAlignment="Center"/>
-                    <Label Content="UI Settings" FontSize="13" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Center" Canvas.Left="10" VerticalAlignment="Top" Canvas.Top="166"/>
-                    <Label x:Name="Username" Content="Discord Closed" HorizontalAlignment="Left" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="66" HorizontalContentAlignment="Right"/>
-                    <Label x:Name="DisplayName" Content="Discord Closed" HorizontalAlignment="Center" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="35" HorizontalContentAlignment="Right"/>
-                    <Label x:Name="UserID" Content="Discord Closed" HorizontalAlignment="Left" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="97" HorizontalContentAlignment="Right"/>
-                    <Label Content="Username" HorizontalAlignment="Left" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="66" HorizontalContentAlignment="Left"/>
-                    <Label Content="Display Name" HorizontalAlignment="Center" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="35" HorizontalContentAlignment="Left"/>
-                    <Label Content="Discord ID" HorizontalAlignment="Left" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="97" HorizontalContentAlignment="Left"/>
-                    <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="28" Width="605" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBox x:Name="ForegroundInputBox" Text="#539db5" Height="22" Width="70" Canvas.Left="530" Canvas.Top="212" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="16" TextChanged="ForegroundInputBox_TextChanged"/>
-                    <Label x:Name="ForegroundLabel" Content="Accent Color" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Height="27" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="207"/>
-                    <TextBox x:Name="BackgroundInputBox" Text="#0b0a0c" Height="22" Width="70" Canvas.Left="530" Canvas.Top="245" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource ForegroundColor}" BorderBrush="{DynamicResource ForegroundColor}" FontSize="16" TextChanged="BackgroundInputBox_TextChanged"/>
-                    <Label x:Name="BackgroundLabel" Content="Background Color" HorizontalAlignment="Center" VerticalAlignment="Top" Width="Auto" Height="32" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource ForegroundColor}" Canvas.Left="10" Canvas.Top="240"/>
-                    <Rectangle Fill="{DynamicResource IanactiveForground}" Height="2" Canvas.Left="10" Canvas.Top="193" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Canvas x:Name="SettingsNavbarCanvas" Background="{DynamicResource BackgroundColor}" Height="412" Width="632" Visibility="Visible" HorizontalAlignment="Left" Canvas.Left="10" VerticalAlignment="Center">
+                    <Label Content="User Information" FontSize="13" Foreground="{DynamicResource LabelTextColor}" HorizontalAlignment="Left" Canvas.Left="10" VerticalAlignment="Center"/>
+                    <Label Content="UI Settings" FontSize="13" Foreground="{DynamicResource LabelTextColor}" HorizontalAlignment="Center" Canvas.Left="10" VerticalAlignment="Top" Canvas.Top="166"/>
+                    <Label x:Name="Username" Content="Discord Closed" HorizontalAlignment="Left" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource LabelTextColor}" Canvas.Left="10" Canvas.Top="66" HorizontalContentAlignment="Right"/>
+                    <Label x:Name="DisplayName" Content="Discord Closed" HorizontalAlignment="Center" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource LabelTextColor}" Canvas.Left="10" Canvas.Top="35" HorizontalContentAlignment="Right"/>
+                    <Label x:Name="UserID" Content="Discord Closed" HorizontalAlignment="Left" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource LabelTextColor}" Canvas.Left="10" Canvas.Top="97" HorizontalContentAlignment="Right"/>
+                    <Label Content="Username" HorizontalAlignment="Left" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource LabelTextColor}" Canvas.Left="10" Canvas.Top="66" HorizontalContentAlignment="Left"/>
+                    <Label Content="Display Name" HorizontalAlignment="Center" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource LabelTextColor}" Canvas.Left="10" Canvas.Top="35" HorizontalContentAlignment="Left"/>
+                    <Label Content="Discord ID" HorizontalAlignment="Left" VerticalAlignment="Center" Width="605" Height="Auto" FontFamily="Segoe UI Light" FontSize="15" Foreground="{DynamicResource LabelTextColor}" Canvas.Left="10" Canvas.Top="97" HorizontalContentAlignment="Left"/>
+                    <Rectangle Fill="{DynamicResource SeparatorColor}" Height="2" Canvas.Left="10" Canvas.Top="28" Width="605" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox x:Name="DirectoryBox" Text="C:\Users\J1233\source\repos\LAME\LAME Hub\bin\Release\configs" Height="22" Width="512" Canvas.Left="60" Canvas.Top="206" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{DynamicResource BackgroundColor}" Foreground="{DynamicResource AccentColor}" BorderBrush="{DynamicResource AccentColor}" FontSize="16" TextChanged="ForegroundInputBox_TextChanged"/>
+                    <Button Style="{DynamicResource ButtonStyle1}" Content="Refresh Configs" Height="48" Canvas.Left="259" Width="114" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="290"/>
+                    <Button Style="{DynamicResource ButtonStyle1}" Content="Edit Current Configs" Height="48" Canvas.Left="259" Width="114" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="354"/>
+                    <ComboBox Style="{DynamicResource ComboBoxStyle1}" Canvas.Left="234" Canvas.Top="247" HorizontalAlignment="Center" VerticalAlignment="Top" Width="164">
+
+                    </ComboBox>
+                    <Rectangle Fill="{DynamicResource SeparatorColor}" Height="2" Canvas.Left="10" Canvas.Top="193" Width="605" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 </Canvas>
             </Canvas>
         </Grid>

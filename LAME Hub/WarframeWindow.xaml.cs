@@ -156,16 +156,9 @@ namespace LAME_Hub
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            if (state == NotificationsEnabled.True)
-            {
-                state = NotificationsEnabled.False;
-            }
-            else if (state == NotificationsEnabled.False)
-            {
-                state = NotificationsEnabled.True;
-            }
-
-            Notifications();
+            Notifications notitifications = new Notifications();
+            notitifications.Show();
+            notitifications.NotificationContent.Content = "Testing Notifications";
         }
     }
 }

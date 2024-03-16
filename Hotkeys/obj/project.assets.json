@@ -58,11 +58,11 @@
   "project": {
     "version": "2.0.1",
     "restore": {
-      "projectUniqueName": "C:\\Users\\J1233\\Source\\Repos\\Hotkeys2\\Hotkeys\\Hotkeys.csproj",
+      "projectUniqueName": "C:\\Users\\J1233\\source\\repos\\LAME\\Hotkeys\\Hotkeys.csproj",
       "projectName": "Hotkeys2",
-      "projectPath": "C:\\Users\\J1233\\Source\\Repos\\Hotkeys2\\Hotkeys\\Hotkeys.csproj",
+      "projectPath": "C:\\Users\\J1233\\source\\repos\\LAME\\Hotkeys\\Hotkeys.csproj",
       "packagesPath": "C:\\Users\\J1233\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\J1233\\Source\\Repos\\Hotkeys2\\Hotkeys\\obj\\",
+      "outputPath": "C:\\Users\\J1233\\source\\repos\\LAME\\Hotkeys\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\J1233\\AppData\\Roaming\\NuGet\\NuGet.Config",

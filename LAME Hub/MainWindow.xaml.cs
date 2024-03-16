@@ -87,7 +87,7 @@ namespace LAME_Hub
         }
         private void Window_Initialized(object sender, EventArgs e)
             {
-            client = new DiscordRpcClient("");
+            client = new DiscordRpcClient("1195005916584620212");
 
             client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
 

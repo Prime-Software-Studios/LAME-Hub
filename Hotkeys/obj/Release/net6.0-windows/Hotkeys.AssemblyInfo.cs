@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WardenDrew")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2.0.1.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.0.1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.0.1+19c12ec3faeea4681c10953849de0aebea43f0c7")]
 [assembly: System.Reflection.AssemblyProductAttribute("Hotkeys")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Hotkeys")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2.0.1.0")]

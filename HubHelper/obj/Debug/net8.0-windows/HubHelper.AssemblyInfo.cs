@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HubHelper")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a4b06469a7faee6fc62646e7d9b1eb7154d9ada8")]
 [assembly: System.Reflection.AssemblyProductAttribute("HubHelper")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HubHelper")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

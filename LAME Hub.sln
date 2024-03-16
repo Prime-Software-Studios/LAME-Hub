@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LAME Hub", "LAME Hub\LAME H
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HubHelper", "HubHelper\HubHelper.csproj", "{DE73F132-1707-4B9B-953C-24894D4A5518}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotkeys", "..\Hotkeys2\Hotkeys\Hotkeys.csproj", "{72BD55A1-9AD1-43A1-AF4E-C20FB0DA5477}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotkeys", "Hotkeys\Hotkeys.csproj", "{72BD55A1-9AD1-43A1-AF4E-C20FB0DA5477}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

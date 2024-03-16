@@ -369,11 +369,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\J1233\\source\\repos\\LAME Hub\\HubHelper\\HubHelper.csproj",
+      "projectUniqueName": "C:\\Users\\J1233\\source\\repos\\LAME\\HubHelper\\HubHelper.csproj",
       "projectName": "HubHelper",
-      "projectPath": "C:\\Users\\J1233\\source\\repos\\LAME Hub\\HubHelper\\HubHelper.csproj",
+      "projectPath": "C:\\Users\\J1233\\source\\repos\\LAME\\HubHelper\\HubHelper.csproj",
       "packagesPath": "C:\\Users\\J1233\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\J1233\\source\\repos\\LAME Hub\\HubHelper\\obj\\",
+      "outputPath": "C:\\Users\\J1233\\source\\repos\\LAME\\HubHelper\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\J1233\\AppData\\Roaming\\NuGet\\NuGet.Config",
